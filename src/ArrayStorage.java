@@ -22,19 +22,26 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
-        int index = indexByUuid(uuid);
-        if (index > 0) {
+        Integer index = indexByUuid(uuid);
+        if (index == null) {
+            return null;
+        }
+        if (index >= 0) {
             return storage[index];
         }
         return null;
     }
 
     void delete(String uuid) {
-        int index = indexByUuid(uuid);
-        if (size + 1 - index >= 0) {
-            System.arraycopy(storage, index + 1, storage, index, size - index - 1);
+        Integer index = indexByUuid(uuid);
+        if (index == null) {
+            return;
         }
-        size--;
+        int leftover = size - index - 1;
+        if (leftover >= 0) {
+            System.arraycopy(storage, index + 1, storage, index, leftover);
+            size--;
+        }
     }
 
     /**
@@ -50,13 +57,13 @@ public class ArrayStorage {
         return size;
     }
 
-    private int indexByUuid(String uuid) {
+    private Integer indexByUuid(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].uuid.equals(uuid)) {
                 return i;
             }
         }
         System.out.println(String.format("No Resume with [uuid: %s] was found", uuid));
-        return -1;
+        return null;
     }
 }
