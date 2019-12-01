@@ -31,7 +31,6 @@ public class ArrayStorage {
 
     void delete(String uuid) {
         int index = indexByUuid(uuid);
-        storage[index] = null;
         if (size + 1 - index >= 0) {
             System.arraycopy(storage, index + 1, storage, index, size - index - 1);
         }
@@ -48,7 +47,7 @@ public class ArrayStorage {
     }
 
     int size() {
-        return size + 1;
+        return size;
     }
 
     private int indexByUuid(String uuid) {
