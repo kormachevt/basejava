@@ -49,7 +49,9 @@ public class ArrayStorage {
      */
     Resume[] getAll() {
         Resume[] resumes = new Resume[size];
-        System.arraycopy(storage, 0, resumes, 0, size);
+        if (size > 0) {
+            System.arraycopy(storage, 0, resumes, 0, size);
+        }
         return resumes;
     }
 
