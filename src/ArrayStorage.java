@@ -22,10 +22,7 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
-        Integer index = indexByUuid(uuid);
-        if (index == null) {
-            return null;
-        }
+        int index = indexByUuid(uuid);
         if (index >= 0) {
             return storage[index];
         }
@@ -33,12 +30,9 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
-        Integer index = indexByUuid(uuid);
-        if (index == null) {
-            return;
-        }
+        int index = indexByUuid(uuid);
         int leftover = size - index - 1;
-        if (leftover >= 0) {
+        if (index >= 0) {
             System.arraycopy(storage, index + 1, storage, index, leftover);
             size--;
         }
@@ -49,9 +43,7 @@ public class ArrayStorage {
      */
     Resume[] getAll() {
         Resume[] resumes = new Resume[size];
-        if (size > 0) {
-            System.arraycopy(storage, 0, resumes, 0, size);
-        }
+        System.arraycopy(storage, 0, resumes, 0, size);
         return resumes;
     }
 
@@ -59,13 +51,13 @@ public class ArrayStorage {
         return size;
     }
 
-    private Integer indexByUuid(String uuid) {
+    private int indexByUuid(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].uuid.equals(uuid)) {
                 return i;
             }
         }
         System.out.println(String.format("No Resume with [uuid: %s] was found", uuid));
-        return null;
+        return -1;
     }
 }
