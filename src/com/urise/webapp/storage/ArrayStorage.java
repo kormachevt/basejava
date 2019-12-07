@@ -17,31 +17,24 @@ public class ArrayStorage {
     }
 
     public void save(Resume resume) {
-        if (isFullStorage()) {
+        if (size() == storage.length) {
             System.out.println("ERROR: The Resume storage is full");
-            return;
-        } else if (isInStorage(resume)) {
+        } else if (getIndex(resume.getUuid()) >= 0) {
             System.out.println("ERROR: This Resume is already stored");
-            return;
-        } else if (isUuidNull(resume)) {
-            System.out.println("ERROR: Resumes without uuid not allowed!");
-            return;
+        } else {
+            storage[size] = resume;
+            size++;
         }
-        storage[size] = resume;
-        size++;
     }
 
     public void update(Resume resume) {
         String uuid = resume.getUuid();
         int i = getIndex(uuid);
-        if (isUuidNull(resume)) {
-            System.out.println("ERROR: Resumes without uuid not allowed!");
-            return;
-        } else if (i < 0) {
+        if (i < 0) {
             System.out.println(String.format("ERROR: No Resume with [uuid: %s] was found", uuid));
-            return;
+        } else {
+            storage[i] = resume;
         }
-        storage[i] = resume;
     }
 
     public Resume get(String uuid) {
@@ -57,10 +50,11 @@ public class ArrayStorage {
         int i = getIndex(uuid);
         if (i < 0) {
             System.out.println(String.format("ERROR: No Resume with [uuid: %s] was found", uuid));
-            return;
+        } else {
+            storage[i] = storage[size - i];
+            storage[size - 1] = null;
+            size--;
         }
-        System.arraycopy(storage, i + 1, storage, i, size - i - 1);
-        size--;
     }
 
     /**
@@ -81,17 +75,5 @@ public class ArrayStorage {
             }
         }
         return -1;
-    }
-
-    private boolean isInStorage(Resume resume) {
-        return (getIndex(resume.getUuid()) >= 0);
-    }
-
-    private boolean isFullStorage() {
-        return (size() == storage.length);
-    }
-
-    private boolean isUuidNull(Resume resume) {
-        return (resume.getUuid() == null);
     }
 }
