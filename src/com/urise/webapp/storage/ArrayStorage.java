@@ -51,7 +51,7 @@ public class ArrayStorage {
         if (i < 0) {
             System.out.println(String.format("ERROR: No Resume with [uuid: %s] was found", uuid));
         } else {
-            storage[i] = storage[size - i];
+            storage[i] = storage[size - 1];
             storage[size - 1] = null;
             size--;
         }
