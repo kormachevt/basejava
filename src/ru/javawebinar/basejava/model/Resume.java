@@ -13,9 +13,7 @@ public class Resume implements Comparable<Resume> {
     }
 
     public void setUuid(String uuid) {
-        if (uuid != null) {
             this.uuid = uuid;
-        }
     }
 
     @Override
