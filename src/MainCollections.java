@@ -3,6 +3,7 @@ import ru.javawebinar.basejava.model.Resume;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Objects;
 
 public class MainCollections {
     private static final String UUID_1 = "uuid1";
@@ -20,11 +21,19 @@ public class MainCollections {
         collection.add(RESUME_1);
         collection.add(RESUME_2);
         collection.add(RESUME_3);
-
+//
         Iterator<Resume> iterator = collection.iterator();
-        for (Resume r : collection) {
+//        for (Resume r : collection) {
+//            System.out.println(r);
+//            if (r.equals(RESUME_1)) {
+//                collection.remove(r);
+//            }
+//        }
+
+        while (iterator.hasNext()) {
+            Resume r = iterator.next();
             System.out.println(r);
-            if (r.equals(RESUME_1)) {
+            if (Objects.equals(r, RESUME_1)) {
                 collection.remove(r);
             }
         }
