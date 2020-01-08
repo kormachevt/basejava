@@ -2,13 +2,13 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.model.Resume;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
 
 public class ListStorage extends AbstractStorage {
-    private List<Resume> list = new LinkedList<>();
+    private List<Resume> list = new ArrayList<>();
 
     @Override
     public void clear() {
