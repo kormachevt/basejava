@@ -26,27 +26,28 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void add(Resume resume, int index) {
+    protected void add(Resume resume, Integer index) {
         list.add(resume);
     }
 
     @Override
-    protected void replace(Resume resume, int index) {
+    protected void replace(Resume resume, Integer index) {
         list.set(index, resume);
     }
 
     @Override
-    protected Resume retrieve(int index) {
+    protected Resume retrieve(Integer index) {
         return list.get(index);
     }
 
     @Override
-    protected void remove(int index) {
-        list.remove(index);
+    protected void remove(Integer index) {
+        int i = index;
+        list.remove(i);
     }
 
     @Override
-    protected int getIndex(String uuid) {
+    protected Integer getIndex(String uuid) {
         ListIterator<Resume> iterator = list.listIterator();
         while (iterator.hasNext()) {
             Resume resume = iterator.next();
@@ -54,6 +55,6 @@ public class ListStorage extends AbstractStorage {
                 return iterator.nextIndex() - 1;
             }
         }
-        return -1;
+        return null;
     }
 }

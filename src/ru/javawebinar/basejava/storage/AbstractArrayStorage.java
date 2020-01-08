@@ -42,29 +42,29 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void add(Resume resume, int index) {
+    protected void add(Resume resume, Integer index) {
         insert(index, resume);
         size++;
     }
 
     @Override
-    protected void replace(Resume resume, int index) {
+    protected void replace(Resume resume, Integer index) {
         storage[index] = resume;
     }
 
     @Override
-    protected Resume retrieve(int index) {
+    protected Resume retrieve(Integer index) {
         return storage[index];
     }
 
     @Override
-    protected void remove(int index) {
+    protected void remove(Integer index) {
         deleteByIndex(index);
         storage[size - 1] = null;
         size--;
     }
 
-    protected abstract void deleteByIndex(int index);
+    protected abstract void deleteByIndex(Integer index);
 
-    protected abstract void insert(int index, Resume resume);
+    protected abstract void insert(Integer index, Resume resume);
 }
