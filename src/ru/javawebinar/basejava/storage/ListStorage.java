@@ -4,7 +4,7 @@ import ru.javawebinar.basejava.model.Resume;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
+import java.util.Objects;
 
 
 public class ListStorage extends AbstractStorage {
@@ -48,13 +48,16 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected Integer getIndex(String uuid) {
-        ListIterator<Resume> iterator = list.listIterator();
-        while (iterator.hasNext()) {
-            Resume resume = iterator.next();
-            if (resume.getUuid().equals(uuid)) {
-                return iterator.nextIndex() - 1;
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getUuid().equals(uuid)) {
+                return i;
             }
         }
         return null;
+    }
+
+    @Override
+    protected boolean isValidIndex(Integer index) {
+        return !Objects.isNull(index);
     }
 }
