@@ -31,13 +31,7 @@ public abstract class AbstractStorage implements Storage {
         remove(index);
     }
 
-    /**
-     * Method for checking if the Resume with uuid IS NOT in the storage.
-     *
-     * @param uuid identifier of the Resume
-     * @return - index of the Resume if its in the storage, otherwise null or -1 depends on the impl
-     */
-    protected Integer checkResumeNotExist(String uuid) {
+    private Integer checkResumeNotExist(String uuid) {
         Integer index = getIndex(uuid);
         if (isValidIndex(index)) {
             throw new ExistStorageException(uuid);
@@ -45,13 +39,7 @@ public abstract class AbstractStorage implements Storage {
         return index;
     }
 
-    /**
-     * Method for checking if the Resume with uuid IS in the storage already.
-     *
-     * @param uuid identifier of the Resume
-     * @return - index of the Resume if its in the storage, otherwise null or -1 depends on the impl
-     */
-    protected Integer checkResumeExist(String uuid) {
+    private Integer checkResumeExist(String uuid) {
         Integer index = getIndex(uuid);
         if (!isValidIndex(index)) {
             throw new NotExistStorageException(uuid);

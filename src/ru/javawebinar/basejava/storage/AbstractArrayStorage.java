@@ -59,6 +59,11 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         size--;
     }
 
+    @Override
+    protected boolean isValidIndex(Integer index) {
+        return index >= 0;
+    }
+
     protected abstract void deleteByIndex(Integer index);
 
     protected abstract void insert(Integer index, Resume resume);

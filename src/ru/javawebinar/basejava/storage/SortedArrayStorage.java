@@ -12,11 +12,6 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected boolean isValidIndex(Integer index) {
-        return index >= 0;
-    }
-
-    @Override
     protected void deleteByIndex(Integer index) {
         System.arraycopy(storage, index + 1, storage, index, size - index - 1);
     }
