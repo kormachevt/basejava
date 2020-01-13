@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class ListStorage extends AbstractStorage {
+public class ListStorage extends AbstractStorage<Integer> {
     private List<Resume> list = new ArrayList<>();
 
     @Override

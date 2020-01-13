@@ -5,7 +5,7 @@ import ru.javawebinar.basejava.model.Resume;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class MapStorage extends AbstractStorage {
+public class MapStorage extends AbstractStorage<String> {
     private Map<String, Resume> map = new LinkedHashMap<>();
 
     @Override
@@ -24,40 +24,32 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void add(Resume resume, Integer index) {
+    protected void add(Resume resume, String index) {
         map.put(resume.getUuid(), resume);
     }
 
     @Override
-    protected void replace(Resume resume, Integer index) {
+    protected void replace(Resume resume, String index) {
         map.replace(resume.getUuid(), resume);
     }
 
     @Override
-    protected Resume retrieve(Integer index) {
-        String[] keyArray = map.keySet().toArray(new String[0]);
-        return map.get(keyArray[index]);
+    protected Resume retrieve(String index) {
+        return map.get(index);
     }
 
     @Override
-    protected void remove(Integer index) {
-        String[] keyArray = map.keySet().toArray(new String[0]);
-        map.remove(keyArray[index]);
+    protected void remove(String index) {
+        map.remove(index);
     }
 
     @Override
-    protected Integer getIndex(String uuid) {
-        String[] keyArray = map.keySet().toArray(new String[0]);
-        for (int i = 0; i < keyArray.length; i++) {
-            if (keyArray[i].equals(uuid)) {
-                return i;
-            }
-        }
-        return -1;
+    protected String getIndex(String uuid) {
+        return uuid;
     }
 
     @Override
-    protected boolean isValidIndex(Integer index) {
-        return index >= 0;
+    protected boolean isValidIndex(String index) {
+        return map.containsKey(index);
     }
 }
