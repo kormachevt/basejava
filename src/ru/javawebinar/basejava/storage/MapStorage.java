@@ -25,12 +25,12 @@ public class MapStorage extends AbstractStorage<String> {
 
     @Override
     protected void add(Resume resume, String index) {
-        map.put(resume.getUuid(), resume);
+        map.put(index, resume);
     }
 
     @Override
     protected void replace(Resume resume, String index) {
-        map.replace(resume.getUuid(), resume);
+        map.replace(index, resume);
     }
 
     @Override
