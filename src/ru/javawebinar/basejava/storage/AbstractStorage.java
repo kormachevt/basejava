@@ -8,54 +8,54 @@ public abstract class AbstractStorage<T> implements Storage {
     @Override
     public void save(Resume resume) {
         String uuid = resume.getUuid();
-        T index = checkResumeNotExist(uuid);
-        add(resume, index);
+        T searchKey = checkResumeNotExist(uuid);
+        add(resume, searchKey);
     }
 
     @Override
     public void update(Resume resume) {
         String uuid = resume.getUuid();
-        T index = checkResumeExist(uuid);
-        replace(resume, index);
+        T searchKey = checkResumeExist(uuid);
+        replace(resume, searchKey);
     }
 
     @Override
     public Resume get(String uuid) {
-        T index = checkResumeExist(uuid);
-        return retrieve(index);
+        T searchKey = checkResumeExist(uuid);
+        return retrieve(searchKey);
     }
 
     @Override
     public void delete(String uuid) {
-        T index = checkResumeExist(uuid);
-        remove(index);
+        T searchKey = checkResumeExist(uuid);
+        remove(searchKey);
     }
 
     private T checkResumeNotExist(String uuid) {
-        T index = getIndex(uuid);
-        if (isValidIndex(index)) {
+        T searchKey = getSearchKey(uuid);
+        if (isValidSearchKey(searchKey)) {
             throw new ExistStorageException(uuid);
         }
-        return index;
+        return searchKey;
     }
 
     private T checkResumeExist(String uuid) {
-        T index = getIndex(uuid);
-        if (!isValidIndex(index)) {
+        T searchKey = getSearchKey(uuid);
+        if (!isValidSearchKey(searchKey)) {
             throw new NotExistStorageException(uuid);
         }
-        return index;
+        return searchKey;
     }
 
-    protected abstract void add(Resume resume, T index);
+    protected abstract void add(Resume resume, T searchKey);
 
-    protected abstract void replace(Resume resume, T index);
+    protected abstract void replace(Resume resume, T searchKey);
 
-    protected abstract Resume retrieve(T index);
+    protected abstract Resume retrieve(T searchKey);
 
-    protected abstract void remove(T index);
+    protected abstract void remove(T searchKey);
 
-    protected abstract T getIndex(String uuid);
+    protected abstract T getSearchKey(String uuid);
 
-    protected abstract boolean isValidIndex(T index);
+    protected abstract boolean isValidSearchKey(T searchKey);
 }

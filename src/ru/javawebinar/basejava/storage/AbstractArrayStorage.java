@@ -60,7 +60,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     }
 
     @Override
-    protected boolean isValidIndex(Integer index) {
+    protected boolean isValidSearchKey(Integer index) {
         return index >= 0;
     }
 
