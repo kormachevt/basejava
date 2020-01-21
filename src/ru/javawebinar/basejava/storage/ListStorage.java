@@ -11,37 +11,22 @@ public class ListStorage extends AbstractStorage<Integer> {
     private List<Resume> list = new ArrayList<>();
 
     @Override
-    public void clear() {
-        list.clear();
-    }
-
-    @Override
-    public Resume[] getAll() {
-        return list.toArray(new Resume[0]);
-    }
-
-    @Override
-    public int size() {
-        return list.size();
-    }
-
-    @Override
-    protected void add(Resume resume, Integer index) {
+    protected void doSave(Resume resume, Integer index) {
         list.add(resume);
     }
 
     @Override
-    protected void replace(Resume resume, Integer index) {
+    protected void doUpdate(Resume resume, Integer index) {
         list.set(index, resume);
     }
 
     @Override
-    protected Resume retrieve(Integer index) {
+    protected Resume doGet(Integer index) {
         return list.get(index);
     }
 
     @Override
-    protected void remove(Integer index) {
+    protected void doDelete(Integer index) {
         int i = index;
         list.remove(i);
     }
@@ -57,7 +42,22 @@ public class ListStorage extends AbstractStorage<Integer> {
     }
 
     @Override
-    protected boolean isValidSearchKey(Integer index) {
+    protected boolean isExist(Integer index) {
         return !Objects.isNull(index);
+    }
+
+    @Override
+    public List<Resume> asList() {
+        return list;
+    }
+
+    @Override
+    public void clear() {
+        list.clear();
+    }
+
+    @Override
+    public int size() {
+        return list.size();
     }
 }

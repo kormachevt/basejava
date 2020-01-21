@@ -4,37 +4,22 @@ import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Array based storageArrayStorage for Resumes
  */
 public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     protected static final int STORAGE_LIMIT = 10_000;
-
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
 
-    @Override
-    public void clear() {
-        Arrays.fill(storage, 0, size, null);
-        size = 0;
-    }
+    protected abstract void deleteByIndex(Integer index);
 
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
-    @Override
-    public Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, size);
-    }
+    protected abstract void insert(Integer index, Resume resume);
 
     @Override
-    public int size() {
-        return size;
-    }
-
-    @Override
-    protected void add(Resume resume, Integer index) {
+    protected void doSave(Resume resume, Integer index) {
         if (size() == STORAGE_LIMIT) {
             throw new StorageException("The Resume storage is full", resume.getUuid());
         }
@@ -43,28 +28,41 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     }
 
     @Override
-    protected void replace(Resume resume, Integer index) {
+    protected void doUpdate(Resume resume, Integer index) {
         storage[index] = resume;
     }
 
     @Override
-    protected Resume retrieve(Integer index) {
+    protected Resume doGet(Integer index) {
         return storage[index];
     }
 
     @Override
-    protected void remove(Integer index) {
+    protected void doDelete(Integer index) {
         deleteByIndex(index);
         storage[size - 1] = null;
         size--;
     }
 
     @Override
-    protected boolean isValidSearchKey(Integer index) {
+    protected boolean isExist(Integer index) {
         return index >= 0;
     }
 
-    protected abstract void deleteByIndex(Integer index);
+    @Override
+    public List<Resume> asList() {
+        Resume[] resumesArray = Arrays.copyOfRange(storage, 0, size);
+        return Arrays.asList(resumesArray);
+    }
 
-    protected abstract void insert(Integer index, Resume resume);
+    @Override
+    public void clear() {
+        Arrays.fill(storage, 0, size, null);
+        size = 0;
+    }
+
+    @Override
+    public int size() {
+        return size;
+    }
 }
