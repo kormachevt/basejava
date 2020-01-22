@@ -4,7 +4,6 @@ import ru.javawebinar.basejava.model.Resume;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 
 public class ListStorage extends AbstractStorage<Integer> {
@@ -43,12 +42,12 @@ public class ListStorage extends AbstractStorage<Integer> {
 
     @Override
     protected boolean isExist(Integer index) {
-        return !Objects.isNull(index);
+        return index != null;
     }
 
     @Override
-    public List<Resume> asList() {
-        return list;
+    protected List<Resume> asList() {
+        return new ArrayList<>(list);
     }
 
     @Override

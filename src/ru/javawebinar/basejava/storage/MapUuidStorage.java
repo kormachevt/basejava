@@ -2,7 +2,7 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.model.Resume;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,9 +41,8 @@ public class MapUuidStorage extends AbstractStorage<String> {
     }
 
     @Override
-    public List<Resume> asList() {
-        Resume[] resumesArray = map.values().toArray(new Resume[0]);
-        return Arrays.asList(resumesArray);
+    protected List<Resume> asList() {
+        return new ArrayList<>(map.values());
     }
 
     @Override

@@ -16,16 +16,16 @@ public abstract class AbstractStorageTest {
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
     private static final String UUID_4 = "uuid4";
-    private static final String FULL_NAME_1 = "c";
-    protected static final Resume RESUME_1 = new Resume(UUID_1, FULL_NAME_1);
-    private static final String FULL_NAME_2 = "b";
-    protected static final Resume RESUME_2 = new Resume(UUID_2, FULL_NAME_2);
     private static final String NOT_EXISTED_UUID = UUID.randomUUID().toString();
+    private static final String FULL_NAME_1 = "c";
+    private static final String FULL_NAME_2 = "b";
     private static final String FULL_NAME_3 = "a";
-    protected static final Resume RESUME_3 = new Resume(UUID_3, FULL_NAME_3);
     private static final String FULL_NAME_4 = "b";
-    protected static final Resume RESUME_4 = new Resume(UUID_4, FULL_NAME_4);
     private static final String NOT_EXISTED_FULL_NAME = UUID.randomUUID().toString();
+    protected static final Resume RESUME_1 = new Resume(UUID_1, FULL_NAME_1);
+    protected static final Resume RESUME_2 = new Resume(UUID_2, FULL_NAME_2);
+    protected static final Resume RESUME_3 = new Resume(UUID_3, FULL_NAME_3);
+    protected static final Resume RESUME_4 = new Resume(UUID_4, FULL_NAME_4);
     private static final Resume RESUME_NOT_EXISTED = new Resume(NOT_EXISTED_UUID, NOT_EXISTED_FULL_NAME);
 
     protected Storage storage;
@@ -53,7 +53,7 @@ public abstract class AbstractStorageTest {
         Resume resume = RESUME_4;
         storage.save(resume);
         assertEquals(4, storage.size());
-        assertSame(resume, storage.get(resume.getUuid()));
+        assertSame(resume, storage.get(UUID_4));
     }
 
 
@@ -98,7 +98,7 @@ public abstract class AbstractStorageTest {
     }
 
     @Test
-    public void getAll() {
+    public void getAllSorted() {
         storage.save(RESUME_4);
         Resume[] expectedResumesArray = {RESUME_3, RESUME_2, RESUME_4, RESUME_1};
         List<Resume> actualResumesList = storage.getAllSorted();
