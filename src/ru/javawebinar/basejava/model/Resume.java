@@ -1,6 +1,7 @@
 package ru.javawebinar.basejava.model;
 
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Initial resume class
@@ -12,8 +13,14 @@ public class Resume {
     private String fullName;
 
     public Resume(String uuid, String fullName) {
+        Objects.requireNonNull(uuid);
+        Objects.requireNonNull(fullName);
         this.uuid = uuid;
         this.fullName = fullName;
+    }
+
+    public Resume(String fullName) {
+        this(UUID.randomUUID().toString(), fullName);
     }
 
     public String getUuid() {

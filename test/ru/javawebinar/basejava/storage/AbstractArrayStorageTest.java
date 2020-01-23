@@ -17,11 +17,11 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
     public void saveStorageOverflow() {
         try {
             for (int i = storage.size(); i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
-                storage.save(new Resume(UUID.randomUUID().toString(), UUID.randomUUID().toString()));
+                storage.save(new Resume(UUID.randomUUID().toString()));
             }
         } catch (StorageException e) {
             fail("The Storage should not be overflowed yet");
         }
-        storage.save(new Resume(UUID.randomUUID().toString(), UUID.randomUUID().toString()));
+        storage.save(new Resume(UUID.randomUUID().toString()));
     }
 }
