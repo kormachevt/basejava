@@ -1,22 +1,24 @@
 package ru.javawebinar.basejava.model;
 
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Initial resume class
  */
 public class Resume {
 
-    // Unique identifier
     private final String uuid;
     private String fullName;
+    private Map<ContactType, String> contactsByType;
+    private Map<SectionType, Section> sectionsByType;
 
     public Resume(String uuid, String fullName) {
         Objects.requireNonNull(uuid);
         Objects.requireNonNull(fullName);
         this.uuid = uuid;
         this.fullName = fullName;
+        this.contactsByType = Collections.emptyMap();
+        this.sectionsByType = Collections.emptyMap();
     }
 
     public Resume(String fullName) {
@@ -29,6 +31,36 @@ public class Resume {
 
     public String getFullName() {
         return fullName;
+    }
+
+    public String getContact(ContactType type) {
+        Objects.requireNonNull(type);
+        return contactsByType.getOrDefault(type, "");
+    }
+
+    public Section getSection(SectionType type) {
+        Objects.requireNonNull(type);
+        return sectionsByType.getOrDefault(type, null);
+    }
+
+    public void addContact(ContactType type, String value) {
+        Objects.requireNonNull(type);
+        contactsByType.put(type, value);
+    }
+
+    public void addSection(SectionType type, String plainTextContent) {
+        Objects.requireNonNull(type);
+        sectionsByType.put(type, new Section(type, plainTextContent, Collections.emptyList(), Collections.emptyList()));
+    }
+
+    public void addSection(SectionType type, List<String> listContent) {
+        Objects.requireNonNull(type);
+        sectionsByType.put(type, new Section(type, "", listContent, Collections.emptyList()));
+    }
+
+    public void addSection(SectionType type, List<Occupation> occupations) {
+        Objects.requireNonNull(type);
+        sectionsByType.put(type, new Section(type, "", Collections.emptyList(), occupations));
     }
 
     @Override
