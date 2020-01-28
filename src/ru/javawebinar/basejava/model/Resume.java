@@ -1,6 +1,9 @@
 package ru.javawebinar.basejava.model;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Initial resume class
@@ -17,8 +20,16 @@ public class Resume {
         Objects.requireNonNull(fullName);
         this.uuid = uuid;
         this.fullName = fullName;
-        this.contactsByType = Collections.emptyMap();
-        this.sectionsByType = Collections.emptyMap();
+        this.contactsByType = new HashMap<>();
+        this.sectionsByType = new HashMap<>();
+
+        for (ContactType type : ContactType.values()) {
+            contactsByType.put(type, "");
+        }
+
+        for (SectionType type : SectionType.values()) {
+            sectionsByType.put(type, null);
+        }
     }
 
     public Resume(String fullName) {
@@ -34,34 +45,52 @@ public class Resume {
     }
 
     public String getContact(ContactType type) {
-        Objects.requireNonNull(type);
-        return contactsByType.getOrDefault(type, "");
+        return contactsByType.get(type);
     }
 
-    public Section getSection(SectionType type) {
-        Objects.requireNonNull(type);
-        return sectionsByType.getOrDefault(type, null);
+    public void setContact(ContactType type, String value) {
+        contactsByType.replace(type, value);
     }
 
-    public void addContact(ContactType type, String value) {
-        Objects.requireNonNull(type);
-        contactsByType.put(type, value);
-    }
+    public
 
-    public void addSection(SectionType type, String plainTextContent) {
-        Objects.requireNonNull(type);
-        sectionsByType.put(type, new Section(type, plainTextContent, Collections.emptyList(), Collections.emptyList()));
-    }
 
-    public void addSection(SectionType type, List<String> listContent) {
-        Objects.requireNonNull(type);
-        sectionsByType.put(type, new Section(type, "", listContent, Collections.emptyList()));
-    }
-
-    public void addSection(SectionType type, List<Occupation> occupations) {
-        Objects.requireNonNull(type);
-        sectionsByType.put(type, new Section(type, "", Collections.emptyList(), occupations));
-    }
+//
+//    public String getContact(ContactType type) {
+//        Objects.requireNonNull(type);
+//        return contactsByType.getOrDefault(type, "");
+//    }
+//
+//    public Section getSection(SectionType type) {
+//        Objects.requireNonNull(type);
+//        return sectionsByType.getOrDefault(type, null);
+//    }
+//
+//    public void addContact(ContactType type, String value) {
+//        Objects.requireNonNull(type);
+//        contactsByType.put(type, value);
+//    }
+//
+//    public void addSection(SectionType type, String plainTextContent) {
+//        Objects.requireNonNull(type);
+//        Section section = new Section(type);
+//        section.setPlainTextContent(plainTextContent);
+//        sectionsByType.put(type, section);
+//    }
+//
+//    public void addSection(SectionType type, List<String> listContent) {
+//        Objects.requireNonNull(type);
+//        Section section = new Section(type);
+//        section.setListContent(listContent);
+//        sectionsByType.put(type, section);
+//    }
+//
+//    public void addSection(SectionType type, List<Occupation> occupations) {
+//        Objects.requireNonNull(type);
+//        Section section = new Section(type);
+//        section.setOccupations(occupations);
+//        sectionsByType.put(type, section);
+//    }
 
     @Override
     public boolean equals(Object o) {
