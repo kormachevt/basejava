@@ -16,10 +16,8 @@ public class Resume {
     private Map<SectionType, Section> sectionsByType;
 
     public Resume(String uuid, String fullName) {
-        Objects.requireNonNull(uuid);
-        Objects.requireNonNull(fullName);
-        this.uuid = uuid;
-        this.fullName = fullName;
+        this.uuid = Objects.requireNonNull(uuid);
+        this.fullName = Objects.requireNonNull(fullName);
         this.contactsByType = new HashMap<>();
         this.sectionsByType = new HashMap<>();
     }

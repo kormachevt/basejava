@@ -18,10 +18,10 @@ public class Occupation {
                       String description,
                       String url) {
         this.objective = objective;
-        this.companyName = companyName;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.description = description;
+        this.companyName = Objects.requireNonNull(companyName);
+        this.startDate = Objects.requireNonNull(startDate);
+        this.endDate = Objects.requireNonNull(endDate);
+        this.description = Objects.requireNonNull(description);
         this.url = url;
     }
 
