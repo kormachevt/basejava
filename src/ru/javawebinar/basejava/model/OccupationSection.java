@@ -3,18 +3,18 @@ package ru.javawebinar.basejava.model;
 import java.util.List;
 import java.util.Objects;
 
-public class ListSection implements Section {
-    private List<String> list;
+public class OccupationSection implements Section {
+    private List<Occupation> list;
 
-    public ListSection(List<String> list) {
+    public OccupationSection(List<Occupation> list) {
         this.list = list;
     }
 
-    public List<String> getList() {
+    public List<Occupation> getList() {
         return list;
     }
 
-    public void setList(List<String> list) {
+    public void setList(List<Occupation> list) {
         this.list = list;
     }
 
@@ -22,7 +22,7 @@ public class ListSection implements Section {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ListSection that = (ListSection) o;
+        OccupationSection that = (OccupationSection) o;
         return Objects.equals(list,
                               that.list);
     }
@@ -34,7 +34,7 @@ public class ListSection implements Section {
 
     @Override
     public String toString() {
-        return "ListSection{" +
+        return "OccupationSection{" +
                 "list=" + list +
                 '}';
     }

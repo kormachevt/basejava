@@ -7,27 +7,11 @@ import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.List;
-import java.util.UUID;
 
 import static org.junit.Assert.*;
+import static ru.javawebinar.basejava.storage.ResumeTestData.*;
 
 public abstract class AbstractStorageTest {
-    private static final String UUID_1 = "uuid1";
-    private static final String UUID_2 = "uuid2";
-    private static final String UUID_3 = "uuid3";
-    private static final String UUID_4 = "uuid4";
-    private static final String NOT_EXISTED_UUID = UUID.randomUUID().toString();
-    private static final String FULL_NAME_1 = "c";
-    private static final String FULL_NAME_2 = "b";
-    private static final String FULL_NAME_3 = "a";
-    private static final String FULL_NAME_4 = "b";
-    private static final String NOT_EXISTED_FULL_NAME = UUID.randomUUID().toString();
-    protected static final Resume RESUME_1 = new Resume(UUID_1, FULL_NAME_1);
-    protected static final Resume RESUME_2 = new Resume(UUID_2, FULL_NAME_2);
-    protected static final Resume RESUME_3 = new Resume(UUID_3, FULL_NAME_3);
-    protected static final Resume RESUME_4 = new Resume(UUID_4, FULL_NAME_4);
-    private static final Resume RESUME_NOT_EXISTED = new Resume(NOT_EXISTED_UUID, NOT_EXISTED_FULL_NAME);
-
     protected Storage storage;
 
     protected AbstractStorageTest(Storage storage) {
