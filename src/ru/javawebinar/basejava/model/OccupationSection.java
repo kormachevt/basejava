@@ -4,18 +4,14 @@ import java.util.List;
 import java.util.Objects;
 
 public class OccupationSection implements Section {
-    private List<Occupation> list;
+    private final List<Occupation> list;
 
     public OccupationSection(List<Occupation> list) {
-        this.list = list;
+        this.list = Objects.requireNonNull(list);
     }
 
     public List<Occupation> getList() {
         return list;
-    }
-
-    public void setList(List<Occupation> list) {
-        this.list = list;
     }
 
     @Override
@@ -23,8 +19,7 @@ public class OccupationSection implements Section {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OccupationSection that = (OccupationSection) o;
-        return Objects.equals(list,
-                              that.list);
+        return list.equals(that.list);
     }
 
     @Override
@@ -34,8 +29,6 @@ public class OccupationSection implements Section {
 
     @Override
     public String toString() {
-        return "OccupationSection{" +
-                "list=" + list +
-                '}';
+        return "OccupationSection{list=" + list + '}';
     }
 }

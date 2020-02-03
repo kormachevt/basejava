@@ -4,33 +4,29 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Occupation {
-    private String objective;
+    private String position;
     private String companyName;
     private LocalDate startDate;
     private LocalDate endDate;
     private String description;
     private String url;
 
-    public Occupation(String objective,
-                      String companyName,
-                      LocalDate startDate,
-                      LocalDate endDate,
-                      String description,
+    public Occupation(String position, String companyName, LocalDate startDate, LocalDate endDate, String description,
                       String url) {
-        this.objective = objective;
+        this.position = Objects.requireNonNull(position);
         this.companyName = Objects.requireNonNull(companyName);
         this.startDate = Objects.requireNonNull(startDate);
         this.endDate = Objects.requireNonNull(endDate);
-        this.description = Objects.requireNonNull(description);
+        this.description = description;
         this.url = url;
     }
 
     public String getObjective() {
-        return objective;
+        return position;
     }
 
     public void setObjective(String objective) {
-        this.objective = objective;
+        this.position = objective;
     }
 
     public String getCompanyName() {
@@ -78,36 +74,21 @@ public class Occupation {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Occupation that = (Occupation) o;
-        return Objects.equals(objective,
-                              that.objective) &&
-                companyName.equals(that.companyName) &&
-                startDate.equals(that.startDate) &&
-                endDate.equals(that.endDate) &&
-                Objects.equals(description,
-                               that.description) &&
-                Objects.equals(url,
-                               that.url);
+        return position.equals(that.position)
+                && companyName.equals(that.companyName)
+                && startDate.equals(that.startDate)
+                && endDate.equals(that.endDate)
+                && Objects.equals(description, that.description)
+                && Objects.equals(url, that.url);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(objective,
-                            companyName,
-                            startDate,
-                            endDate,
-                            description,
-                            url);
+        return Objects.hash(position, companyName, startDate, endDate, description, url);
     }
 
     @Override
     public String toString() {
-        return "Occupation{" +
-                "objective='" + objective + '\'' +
-                ", companyName='" + companyName + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", description='" + description + '\'' +
-                ", url='" + url + '\'' +
-                '}';
+        return "Occupation{position='" + position + '\'' + ", companyName='" + companyName + '\'' + ", startDate=" + startDate + ", endDate=" + endDate + ", description='" + description + '\'' + ", url='" + url + '\'' + '}';
     }
 }

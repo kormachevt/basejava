@@ -20,9 +20,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
 
     @Override
     protected void doSave(Resume resume, Integer index) {
-        if (size() == STORAGE_LIMIT) {
-            throw new StorageException("The Resume storage is full", resume.getUuid());
-        }
+        if (size() == STORAGE_LIMIT) throw new StorageException("The Resume storage is full", resume.getUuid());
         insert(index, resume);
         size++;
     }

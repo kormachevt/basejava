@@ -3,18 +3,14 @@ package ru.javawebinar.basejava.model;
 import java.util.Objects;
 
 public class TextSection implements Section {
-    private String text;
+    private final String text;
 
     public TextSection(String text) {
-        this.text = text;
+        this.text = Objects.requireNonNull(text);
     }
 
     public String getText() {
         return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
     }
 
     @Override
@@ -32,8 +28,6 @@ public class TextSection implements Section {
 
     @Override
     public String toString() {
-        return "TextSection{" +
-                "text='" + text + '\'' +
-                '}';
+        return "TextSection{text='" + text + '\'' + '}';
     }
 }
