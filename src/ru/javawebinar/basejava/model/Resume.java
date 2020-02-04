@@ -11,14 +11,12 @@ import java.util.UUID;
 public class Resume {
     private final String uuid;
     private String fullName;
-    private Map<ContactType, String> contactsByType;
-    private Map<SectionType, Section> sectionsByType;
+    private final Map<ContactType, String> contactsByType = new EnumMap<>(ContactType.class);
+    private final Map<SectionType, Section> sectionsByType = new EnumMap<>(SectionType.class);
 
     public Resume(String uuid, String fullName) {
         this.uuid = Objects.requireNonNull(uuid);
         this.fullName = Objects.requireNonNull(fullName);
-        this.contactsByType = new EnumMap<>(ContactType.class);
-        this.sectionsByType = new EnumMap<>(SectionType.class);
     }
 
     public Resume(String fullName) {

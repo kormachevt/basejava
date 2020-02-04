@@ -4,12 +4,12 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Occupation {
-    private String position;
-    private String companyName;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private String description;
-    private String url;
+    private final String position;
+    private final String companyName;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
+    private final String description;
+    private final String url;
 
     public Occupation(String position, String companyName, LocalDate startDate, LocalDate endDate, String description,
                       String url) {
@@ -25,48 +25,24 @@ public class Occupation {
         return position;
     }
 
-    public void setObjective(String objective) {
-        this.position = objective;
-    }
-
     public String getCompanyName() {
         return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
     }
 
     public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
     public LocalDate getEndDate() {
         return endDate;
-    }
-
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getUrl() {
         return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     @Override
