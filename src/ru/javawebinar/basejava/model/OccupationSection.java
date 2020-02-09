@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Objects;
 
 public class OccupationSection implements Section {
-    private final List<Occupation> list;
+    private final List<Organization> list;
 
-    public OccupationSection(List<Occupation> list) {
+    public OccupationSection(List<Organization> list) {
         this.list = Objects.requireNonNull(list);
     }
 
-    public List<Occupation> getList() {
+    public List<Organization> getList() {
         return list;
     }
 

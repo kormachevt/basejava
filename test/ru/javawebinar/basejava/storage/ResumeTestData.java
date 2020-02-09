@@ -69,121 +69,98 @@ public class ResumeTestData {
         ListSection qualificationsSection = new ListSection(qualificationsList);
 
 
-        List<Occupation> experienceList = new ArrayList<>();
-        experienceList.add(new Occupation("Автор проекта.",
-                                          "Java Online Projects",
-                                          LocalDate.of(2013,10,1),
-                                          LocalDate.now(),
-                                          "Создание, организация и проведение Java онлайн проектов и стажировок.",
-                                          "http://javaops.ru/"));
+        List<Organization> experienceList = new ArrayList<>();
+        experienceList.add(new Organization("Java Online Projects", "http://javaops.ru/")
+                                   .addPositionDetails("Автор проекта.",
+                                                       of(2013, Month.OCTOBER),
+                                                       LocalDate.now(),
+                                                       "Создание, организация и проведение Java онлайн проектов и стажировок."));
 
-        experienceList.add(new Occupation("Старший разработчик (backend)",
-                                          "Wrike",
-                                          LocalDate.of(2014,10,1),
-                                          LocalDate.of(2016,1,1),
-                                          "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO.",
-                                          "https://www.wrike.com/"));
+        experienceList.add(new Organization("Wrike", "https://www.wrike.com/")
+                                   .addPositionDetails("Старший разработчик (backend)",
+                                                       of(2014, Month.OCTOBER),
+                                                       of(2016, Month.JANUARY),
+                                                       "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."));
 
-        experienceList.add(new Occupation("Java архитектор",
-                                          "RIT Center",
-                                          LocalDate.of(2012,4,1),
-                                          LocalDate.of(2014,10,1),
-                                          "Организация процесса разработки системы ERP для разных окружений: релизная политика, версионирование, ведение CI (Jenkins), миграция базы (кастомизация Flyway), конфигурирование системы (pgBoucer, Nginx), AAA via SSO. Архитектура БД и серверной части системы. Разработка интергационных сервисов: CMIS, BPMN2, 1C (WebServices), сервисов общего назначения (почта, экспорт в pdf, doc, html). Интеграция Alfresco JLAN для online редактирование из браузера документов MS Office. Maven + plugin development, Ant, Apache Commons, Spring security, Spring MVC, Tomcat,WSO2, xcmis, OpenCmis, Bonita, Python scripting, Unix shell remote scripting via ssh tunnels, PL/Python",
-                                          null));
+        experienceList.add(new Organization("RIT Center", null)
+                                   .addPositionDetails("Java архитектор",
+                                                       of(2012, Month.APRIL),
+                                                       of(2014, Month.OCTOBER),
+                                                       "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."));
 
-        experienceList.add(new Occupation("Ведущий программист",
-                                          "Luxoft (Deutsche Bank)",
-                                          LocalDate.of(2010,12,1),
-                                          LocalDate.of(2012,4,1),
-                                          "Участие в проекте Deutsche Bank CRM (WebLogic, Hibernate, Spring, Spring MVC, SmartGWT, GWT, Jasper, Oracle). Реализация клиентской и серверной части CRM. Реализация RIA-приложения для администрирования, мониторинга и анализа результатов в области алгоритмического трейдинга. JPA, Spring, Spring-MVC, GWT, ExtGWT (GXT), Highstock, Commet, HTML5.",
-                                          "http://www.luxoft.ru/"));
+        experienceList.add(new Organization("Luxoft (Deutsche Bank)", "http://www.luxoft.ru/")
+                                   .addPositionDetails("Ведущий программист",
+                                                       of(2010, Month.DECEMBER),
+                                                       of(2012, Month.APRIL),
+                                                       "Участие в проекте Deutsche Bank CRM (WebLogic, Hibernate, Spring, Spring MVC, SmartGWT, GWT, Jasper, Oracle). Реализация клиентской и серверной части CRM. Реализация RIA-приложения для администрирования, мониторинга и анализа результатов в области алгоритмического трейдинга. JPA, Spring, Spring-MVC, GWT, ExtGWT (GXT), Highstock, Commet, HTML5."));
 
-        experienceList.add(new Occupation("Ведущий специалист",
-                                          "Yota",
-                                          LocalDate.of(2008,6,1),
-                                          LocalDate.of(2010,12,1),
-                                          "Дизайн и имплементация Java EE фреймворка для отдела \"Платежные Системы\" (GlassFish v2.1, v3, OC4J, EJB3, JAX-WS RI 2.1, Servlet 2.4, JSP, JMX, JMS, Maven2). Реализация администрирования, статистики и мониторинга фреймворка. Разработка online JMX клиента (Python/ Jython, Django, ExtJS)",
-                                          "https://www.yota.ru/"));
+        experienceList.add(new Organization("Yota", "https://www.yota.ru/")
+                                   .addPositionDetails("Ведущий специалист",
+                                                       of(2008, Month.JUNE),
+                                                       of(2010, Month.DECEMBER),
+                                                       "Дизайн и имплементация Java EE фреймворка для отдела \"Платежные Системы\" (GlassFish v2.1, v3, OC4J, EJB3, JAX-WS RI 2.1, Servlet 2.4, JSP, JMX, JMS, Maven2). Реализация администрирования, статистики и мониторинга фреймворка. Разработка online JMX клиента (Python/ Jython, Django, ExtJS)"));
 
-        experienceList.add(new Occupation("Разработчик ПО",
-                                          "Enkata",
-                                          LocalDate.of(2007,3,1),
-                                          LocalDate.of(2008,6,1),
-                                          "Дизайн и имплементация Java EE фреймворка для отдела \"Платежные Системы\" (GlassFish v2.1, v3, OC4J, EJB3, JAX-WS RI 2.1, Servlet 2.4, JSP, JMX, JMS, Maven2). Реализация администрирования, статистики и мониторинга фреймворка. Разработка online JMX клиента (Python/ Jython, Django, ExtJS)",
-                                          "http://enkata.com/"));
+        experienceList.add(new Organization("Enkata", "http://enkata.com/")
+                                   .addPositionDetails("Разработчик ПО",
+                                                       of(2007, Month.MARCH),
+                                                       of(2008, Month.JUNE),
+                                                       "Реализация клиентской (Eclipse RCP) и серверной (JBoss 4.2, Hibernate 3.0, Tomcat, JMS) частей кластерного J2EE приложения (OLAP, Data mining)."));
 
-        experienceList.add(new Occupation("Разработчик ПО",
-                                          "Enkata",
-                                          LocalDate.of(2007,3,1),
-                                          LocalDate.of(2008,6,1),
-                                          "Реализация клиентской (Eclipse RCP) и серверной (JBoss 4.2, Hibernate 3.0, Tomcat, JMS) частей кластерного J2EE приложения (OLAP, Data mining).",
-                                          "http://enkata.com/"));
+        experienceList.add(new Organization("Siemens AG", "https://www.siemens.com/ru/ru/home.html")
+                                   .addPositionDetails("Разработчик ПО",
+                                                       of(2005, Month.JANUARY),
+                                                       of(2007, Month.FEBRUARY),
+                                                       "Разработка информационной модели, проектирование интерфейсов, реализация и отладка ПО на мобильной IN платформе Siemens @vantage (Java, Unix)."));
 
-        experienceList.add(new Occupation("Разработчик ПО",
-                                          "Siemens AG",
-                                          LocalDate.of(2005,1,1),
-                                          LocalDate.of(2007,2,1),
-                                          "Разработка информационной модели, проектирование интерфейсов, реализация и отладка ПО на мобильной IN платформе Siemens @vantage (Java, Unix).",
-                                          "https://www.siemens.com/ru/ru/home.html"));
+        experienceList.add(new Organization("Alcatel", "http://www.alcatel.ru/")
+                                   .addPositionDetails("Инженер по аппаратному и программному тестированию",
+                                                       of(2005, Month.JANUARY),
+                                                       of(2007, Month.FEBRUARY),
+                                                       "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM)."));
 
-        experienceList.add(new Occupation("Инженер по аппаратному и программному тестированию",
-                                          "Alcatel",
-                                          LocalDate.of(1997,9,1),
-                                          LocalDate.of(2005,1,1),
-                                          "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM).",
-                                          "http://www.alcatel.ru/"));
         OccupationSection experienceSection = new OccupationSection(experienceList);
 
 
-        List<Occupation> educationList = new ArrayList<>();
-        educationList.add(new Occupation("\"Functional Programming Principles in Scala\" by Martin Odersky",
-                                         "Coursera",
-                                         LocalDate.of(2013,3,1),
-                                         LocalDate.of(2013,5,1),
-                                         null,
-                                         "https://www.coursera.org/course/progfun"));
+        List<Organization> educationList = new ArrayList<>();
+        educationList.add(new Organization("Coursera", "https://www.coursera.org/course/progfun")
+                                  .addPositionDetails("\"Functional Programming Principles in Scala\" by Martin Odersky",
+                                                      of(2013, Month.MARCH),
+                                                      of(2013, Month.MAY),
+                                                      null));
 
-        educationList.add(new Occupation("Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"",
-                                         "Luxoft",
-                                         LocalDate.of(2011,4,1),
-                                         LocalDate.of(2011,2,1),
-                                         null,
-                                         "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366"));
+        educationList.add(new Organization("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366")
+                                  .addPositionDetails("Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"",
+                                                      of(2011, Month.APRIL),
+                                                      of(2011, Month.FEBRUARY),
+                                                      null));
 
-        educationList.add(new Occupation("3 месяца обучения мобильным IN сетям (Берлин)",
-                                         "Siemens AG",
-                                         LocalDate.of(2005,1,1),
-                                         LocalDate.of(2005,4,1),
-                                         null,
-                                         "http://www.siemens.ru/"));
+        educationList.add(new Organization("Siemens AG", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366")
+                                  .addPositionDetails("3 месяца обучения мобильным IN сетям (Берлин)",
+                                                      of(2005, Month.JANUARY),
+                                                      of(2005, Month.APRIL),
+                                                      null));
 
-        educationList.add(new Occupation("6 месяцев обучения цифровым телефонным сетям (Москва)",
-                                         "Alcatel",
-                                         LocalDate.of(1997,9,1),
-                                         LocalDate.of(2008,3,1),
-                                         null,
-                                         "http://www.alcatel.ru/"));
+        educationList.add(new Organization("Alcatel", "http://www.alcatel.ru/")
+                                  .addPositionDetails("6 месяцев обучения цифровым телефонным сетям (Москва)",
+                                                      of(1997, Month.SEPTEMBER),
+                                                      of(2008, Month.MARCH),
+                                                      null));
 
-        educationList.add(new Occupation("Аспирантура (программист С, С++)",
-                                         "Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики",
-                                         LocalDate.of(1993,9,1),
-                                         LocalDate.of(1996,7,1),
-                                         null,
-                                         "http://www.ifmo.ru/"));
+        educationList.add(new Organization("Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики", "http://www.ifmo.ru/")
+                                  .addPositionDetails("Аспирантура (программист С, С++)",
+                                                      of(1993, Month.SEPTEMBER),
+                                                      of(1996, Month.JULY),
+                                                      null)
+                                  .addPositionDetails("Инженер (программист Fortran, C)",
+                                                      of(1987, Month.SEPTEMBER),
+                                                      of(1993, Month.JULY),
+                                                      null));
 
-        educationList.add(new Occupation("Инженер (программист Fortran, C)",
-                                         "Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики",
-                                         LocalDate.of(1987,9,1),
-                                         LocalDate.of(1993,7,1),
-                                         null,
-                                         "http://www.ifmo.ru/"));
-
-        educationList.add(new Occupation("Закончил с отличием",
-                                         "Заочная физико-техническая школа при МФТИ",
-                                         LocalDate.of(1984,9,1),
-                                         LocalDate.of(1987,6,1),
-                                         null,
-                                         "http://www.school.mipt.ru/"));
+        educationList.add(new Organization("Заочная физико-техническая школа при МФТИ", "http://www.school.mipt.ru/")
+                                  .addPositionDetails("Закончил с отличием",
+                                                      of(1984, Month.SEPTEMBER),
+                                                      of(1987, Month.JUNE),
+                                                      null));
         OccupationSection educationSection = new OccupationSection(educationList);
 
         resume.setSection(SectionType.PERSONAL, personalSection);
