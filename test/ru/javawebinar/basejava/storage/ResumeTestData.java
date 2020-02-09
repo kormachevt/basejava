@@ -121,7 +121,7 @@ public class ResumeTestData {
                                                        of(2007, Month.FEBRUARY),
                                                        "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM)."));
 
-        OccupationSection experienceSection = new OccupationSection(experienceList);
+        OrganizationSection experienceSection = new OrganizationSection(experienceList);
 
 
         List<Organization> educationList = new ArrayList<>();
@@ -164,7 +164,7 @@ public class ResumeTestData {
                                                       of(1984, Month.SEPTEMBER),
                                                       of(1987, Month.JUNE),
                                                       null));
-        OccupationSection educationSection = new OccupationSection(educationList);
+        OrganizationSection educationSection = new OrganizationSection(educationList);
 
         resume.setSection(SectionType.PERSONAL, personalSection);
         resume.setSection(SectionType.OBJECTIVE, objectiveSection);
