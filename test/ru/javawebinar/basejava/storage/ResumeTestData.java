@@ -3,9 +3,12 @@ package ru.javawebinar.basejava.storage;
 import ru.javawebinar.basejava.model.*;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import static ru.javawebinar.basejava.util.DateUtil.of;
 
 public class ResumeTestData {
     static final String UUID_1 = "uuid1";
