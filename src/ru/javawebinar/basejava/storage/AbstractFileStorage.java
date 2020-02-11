@@ -32,10 +32,10 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     protected void doSave(Resume resume, File file) {
         try {
             file.createNewFile();
-            doWrite(resume, file);
         } catch (IOException e) {
             throw new StorageException("IO error", file.getName(), e);
         }
+        doUpdate(resume, file);
     }
 
     @Override
@@ -76,15 +76,12 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected List<Resume> asList() {
         File[] files = directory.listFiles();
+        if (files == null) {
+            throw new StorageException("Invalid file storage", directory.getName());
+        }
         List<Resume> resumeList = new ArrayList<>();
-        if (files != null) {
-            for (File file : files) {
-                try {
-                    resumeList.add(doRead(file));
-                } catch (IOException e) {
-                    throw new StorageException("IO error", file.getName(), e);
-                }
-            }
+        for (File file : files) {
+            resumeList.add(doGet(file));
         }
         return resumeList;
     }
@@ -92,19 +89,20 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     public void clear() {
         File[] files = directory.listFiles();
-        if (files != null) {
-            for (File file : files) {
-                doDelete(file);
-            }
+        if (files == null) {
+            throw new StorageException("Invalid file storage", directory.getName());
+        }
+        for (File file : files) {
+            doDelete(file);
         }
     }
 
     @Override
     public int size() {
         String[] fileNames = directory.list();
-        if (fileNames != null) {
-            return fileNames.length;
+        if (fileNames == null) {
+            throw new StorageException("Invalid file storage", directory.getName());
         }
-        return 0;
+        return fileNames.length;
     }
 }

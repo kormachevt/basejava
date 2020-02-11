@@ -5,21 +5,22 @@ import java.io.File;
 public class MainFileRecursion {
 
     public static void main(String[] args) {
-        printFileNamesInDir("./src/ru/javawebinar/basejava/");
+        String path = "./src/ru/javawebinar/basejava/";
+        File dir = new File(path);
+        printFileNamesInDir(dir);
     }
 
-    public static  void printFileNamesInDir(String basePath) {
-        File base = new File(basePath);
-        if (base.isDirectory()) {
-            System.out.println(base.getName());
-            String[] list = base.list();
+    public static  void printFileNamesInDir(File dir) {
+        if (dir.isDirectory()) {
+            System.out.println(dir.getName());
+            File[] list = dir.listFiles();
             if (list != null) {
-                for (String name : list) {
-                    printFileNamesInDir(basePath + name + "/");
+                for (File file : list) {
+                    printFileNamesInDir(file);
                 }
             }
-        } else if (base.isFile()) {
-            printFileName(base);
+        } else if (dir.isFile()) {
+            printFileName(dir);
         } else {
             throw new RuntimeException("Something went wrong");
         }
