@@ -33,7 +33,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         try {
             file.createNewFile();
         } catch (IOException e) {
-            throw new StorageException("IO error", file.getName(), e);
+            throw new StorageException("IO error - file creation has failed", file.getName(), e);
         }
         doUpdate(resume, file);
     }
@@ -43,7 +43,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         try {
             doWrite(resume, file);
         } catch (IOException e) {
-            throw new StorageException("IO error", file.getName(), e);
+            throw new StorageException("IO error - file overwrite has failed", file.getName(), e);
         }
     }
 
@@ -52,14 +52,14 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         try {
             return doRead(file);
         } catch (IOException e) {
-            throw new StorageException("IO error", file.getName(), e);
+            throw new StorageException("IO error - file reading has failed", file.getName(), e);
         }
     }
 
     @Override
     protected void doDelete(File file) {
         if (!file.delete()) {
-            throw new StorageException("IO error", file.getName());
+            throw new StorageException("IO error - file deletion has failed", file.getName());
         }
     }
 
@@ -76,9 +76,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected List<Resume> asList() {
         File[] files = directory.listFiles();
-        if (files == null) {
-            throw new StorageException("Invalid file storage", directory.getName());
-        }
+        validateFileList(files);
         List<Resume> resumeList = new ArrayList<>();
         for (File file : files) {
             resumeList.add(doGet(file));
@@ -89,9 +87,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     public void clear() {
         File[] files = directory.listFiles();
-        if (files == null) {
-            throw new StorageException("Invalid file storage", directory.getName());
-        }
+        validateFileList(files);
         for (File file : files) {
             doDelete(file);
         }
@@ -100,9 +96,13 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     public int size() {
         String[] fileNames = directory.list();
-        if (fileNames == null) {
-            throw new StorageException("Invalid file storage", directory.getName());
-        }
+        validateFileList(fileNames);
         return fileNames.length;
+    }
+
+    private <T> void validateFileList(T[] list) {
+        if (list == null) {
+            throw new StorageException("List of files is invalid", directory.getName());
+        }
     }
 }
