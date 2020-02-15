@@ -1,11 +1,14 @@
 package ru.javawebinar.basejava.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Organization {
+public class Organization implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     private final List<PositionDetails> positionDetailsList = new ArrayList<>();
     private final String companyName;
     private final String url;
@@ -46,7 +49,9 @@ public class Organization {
         return "Occupation{" + "companyName='" + companyName + '\'' + ", positionDetailsList=" + positionDetailsList + ", url='" + url + '\'' + '}';
     }
 
-    public static class  PositionDetails{
+    public static class  PositionDetails implements Serializable{
+        private static final long serialVersionUID = 1L;
+
         private final String title;
         private final LocalDate startDate;
         private final LocalDate endDate;

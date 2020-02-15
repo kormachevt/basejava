@@ -1,9 +1,12 @@
 package ru.javawebinar.basejava.model;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-public class OrganizationSection implements Section {
+public class OrganizationSection implements Section, Serializable {
+    private static final long serialVersionUID = 1L;
+
     private final List<Organization> list;
 
     public OrganizationSection(List<Organization> list) {

@@ -21,16 +21,19 @@ public class ResumeTestData {
     static final String FULL_NAME_3 = "a";
     static final String FULL_NAME_4 = "b";
     static final String NOT_EXISTED_FULL_NAME = UUID.randomUUID().toString();
-    static final Resume RESUME_1 = new Resume(UUID_1, FULL_NAME_1);
-    static final Resume RESUME_2 = new Resume(UUID_2, FULL_NAME_2);
-    static final Resume RESUME_3 = new Resume(UUID_3, FULL_NAME_3);
-    static final Resume RESUME_4 = new Resume(UUID_4, FULL_NAME_4);
-    static final Resume RESUME_NOT_EXISTED = new Resume(NOT_EXISTED_UUID, NOT_EXISTED_FULL_NAME);
-
+    static final Resume RESUME_1 = fillWithData(new Resume(UUID_1, FULL_NAME_1));
+    static final Resume RESUME_2 = fillWithData(new Resume(UUID_2, FULL_NAME_2));
+    static final Resume RESUME_3 = fillWithData(new Resume(UUID_3, FULL_NAME_3));
+    static final Resume RESUME_4 = fillWithData(new Resume(UUID_4, FULL_NAME_4));
+    static final Resume RESUME_NOT_EXISTED = fillWithData(new Resume(NOT_EXISTED_UUID, NOT_EXISTED_FULL_NAME));
 
     public static void main(String[] args) {
         Resume resume = new Resume("test resume fullname");
+        fillWithData(resume);
+        System.out.println(resume);
+    }
 
+    private static Resume fillWithData(Resume resume){
         resume.setContact(ContactType.PHONE_NUMBER, "+7(921) 855-0482");
         resume.setContact(ContactType.SKYPE, "skype:grigory.kislin");
         resume.setContact(ContactType.EMAIL, "gkislin@yandex.ru");
@@ -173,6 +176,6 @@ public class ResumeTestData {
         resume.setSection(SectionType.EXPERIENCE, experienceSection);
         resume.setSection(SectionType.EDUCATION, educationSection);
 
-        System.out.println(resume);
+        return resume;
     }
 }
