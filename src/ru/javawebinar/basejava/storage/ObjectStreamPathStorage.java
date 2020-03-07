@@ -4,9 +4,10 @@ import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.io.*;
+import java.nio.file.Path;
 
-public class ObjectStreamStorage extends AbstractFileStorage {
-    public ObjectStreamStorage(String dir) {
+public class ObjectStreamPathStorage extends AbstractPathStorage {
+    public ObjectStreamPathStorage(String dir) {
         super(dir);
     }
 
