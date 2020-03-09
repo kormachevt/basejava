@@ -30,11 +30,6 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
 
     @Override
     protected void doSave(Resume resume, Path path) {
-//        try {
-//            Files.createFile(path);
-//        } catch (IOException e) {
-//            throw new StorageException("IO error - file creation error", path.getFileName().toString(), e);
-//        }
         doUpdate(resume, path);
     }
 
