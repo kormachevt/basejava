@@ -1,5 +1,6 @@
-package ru.javawebinar.basejava.storage;
+package ru.javawebinar.basejava.serialization;
 
+import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.io.*;
@@ -14,9 +15,11 @@ public class ObjectStreamSerializationStrategy implements SerializationStrategy 
     }
 
     @Override
-    public Resume read(InputStream is) throws IOException, ClassNotFoundException {
+    public Resume read(InputStream is) throws IOException{
         try (ObjectInputStream ois = new ObjectInputStream(is)) {
             return (Resume) ois.readObject();
+        } catch (ClassNotFoundException e) {
+            throw new StorageException("Class not found error", "", e);
         }
     }
 }

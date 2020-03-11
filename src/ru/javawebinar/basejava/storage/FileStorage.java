@@ -2,6 +2,7 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
+import ru.javawebinar.basejava.serialization.SerializationStrategy;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -22,10 +23,6 @@ public class FileStorage extends AbstractStorage<File> {
             throw new IllegalArgumentException(directory.getAbsolutePath() + "is not readable/writable");
         }
         this.directory = directory;
-        this.serializationStrategy = serializationStrategy;
-    }
-
-    public void setSerializationStrategy(SerializationStrategy serializationStrategy){
         this.serializationStrategy = serializationStrategy;
     }
 
@@ -52,7 +49,7 @@ public class FileStorage extends AbstractStorage<File> {
     protected Resume doGet(File file) {
         try {
             return this.serializationStrategy.read(new BufferedInputStream(new FileInputStream(file)));
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException e) {
             throw new StorageException("IO error - file reading error", file.getName(), e);
         }
     }

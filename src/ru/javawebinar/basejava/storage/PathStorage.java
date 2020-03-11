@@ -2,6 +2,7 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
+import ru.javawebinar.basejava.serialization.SerializationStrategy;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -36,10 +37,6 @@ public class PathStorage extends AbstractStorage<Path> {
         }
     }
 
-    public void setSerializationStrategy(SerializationStrategy serializationStrategy) {
-        this.serializationStrategy = serializationStrategy;
-    }
-
     @Override
     protected void doSave(Resume resume, Path path) {
         doUpdate(resume, path);
@@ -58,7 +55,7 @@ public class PathStorage extends AbstractStorage<Path> {
     protected Resume doGet(Path path) {
         try {
             return this.serializationStrategy.read(new BufferedInputStream(Files.newInputStream(path)));
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException e) {
             throw new StorageException("IO error - file reading error", path.getFileName().toString(), e);
         }
     }
