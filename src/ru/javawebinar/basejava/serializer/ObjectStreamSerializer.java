@@ -1,11 +1,11 @@
-package ru.javawebinar.basejava.serialization;
+package ru.javawebinar.basejava.serializer;
 
 import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.io.*;
 
-public class ObjectStreamSerializationStrategy implements SerializationStrategy {
+public class ObjectStreamSerializer implements StreamSerializer {
 
     @Override
     public void write(Resume resume, OutputStream os) throws IOException {
@@ -19,7 +19,7 @@ public class ObjectStreamSerializationStrategy implements SerializationStrategy 
         try (ObjectInputStream ois = new ObjectInputStream(is)) {
             return (Resume) ois.readObject();
         } catch (ClassNotFoundException e) {
-            throw new StorageException("Class not found error", "", e);
+            throw new StorageException("Class not found error");
         }
     }
 }
