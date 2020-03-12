@@ -4,13 +4,16 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-public class OrganizationSection implements Section, Serializable {
+public class OrganizationSection extends Section implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private final List<Organization> list;
+    private List<Organization> list;
 
     public OrganizationSection(List<Organization> list) {
         this.list = Objects.requireNonNull(list);
+    }
+
+    public OrganizationSection() {
     }
 
     public List<Organization> getList() {

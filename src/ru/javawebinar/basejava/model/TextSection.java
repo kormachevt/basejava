@@ -3,13 +3,16 @@ package ru.javawebinar.basejava.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class TextSection implements Section, Serializable {
+public class TextSection extends Section implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private final String text;
+    private String text;
 
     public TextSection(String text) {
         this.text = Objects.requireNonNull(text);
+    }
+
+    public TextSection() {
     }
 
     public String getText() {

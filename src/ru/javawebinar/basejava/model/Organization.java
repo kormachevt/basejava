@@ -1,21 +1,30 @@
 package ru.javawebinar.basejava.model;
 
+import ru.javawebinar.basejava.util.LocalDateAdapter;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Organization implements Serializable {
     private static final long serialVersionUID = 1L;
-    
-    private final List<PositionDetails> positionDetailsList = new ArrayList<>();
-    private final String companyName;
-    private final String url;
+
+    private List<PositionDetails> positionDetailsList = new ArrayList<>();
+    private String companyName;
+    private String url;
 
     public Organization(String companyName, String url) {
         this.companyName = companyName;
         this.url = url;
+    }
+
+    public Organization() {
     }
 
     public String getCompanyName() {
@@ -26,7 +35,7 @@ public class Organization implements Serializable {
         return url;
     }
 
-    public Organization addPositionDetails(String position, LocalDate startDate, LocalDate endDate, String description){
+    public Organization addPositionDetails(String position, LocalDate startDate, LocalDate endDate, String description) {
         this.positionDetailsList.add(new PositionDetails(position, startDate, endDate, description));
         return this;
     }
@@ -49,19 +58,25 @@ public class Organization implements Serializable {
         return "Occupation{" + "companyName='" + companyName + '\'' + ", positionDetailsList=" + positionDetailsList + ", url='" + url + '\'' + '}';
     }
 
-    public static class  PositionDetails implements Serializable{
+    @XmlAccessorType(XmlAccessType.FIELD)
+    public static class PositionDetails implements Serializable {
         private static final long serialVersionUID = 1L;
 
-        private final String title;
-        private final LocalDate startDate;
-        private final LocalDate endDate;
-        private final String description;
+        private String title;
+        @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
+        private LocalDate startDate;
+        @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
+        private LocalDate endDate;
+        private String description;
 
         public PositionDetails(String title, LocalDate startDate, LocalDate endDate, String description) {
             this.title = title;
             this.startDate = startDate;
             this.endDate = endDate;
             this.description = description;
+        }
+
+        public PositionDetails() {
         }
 
         public String getTitle() {

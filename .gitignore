@@ -4,3 +4,4 @@ out
 log
 /storage/*
 !/storage/.gitkeep
+/lib/*
