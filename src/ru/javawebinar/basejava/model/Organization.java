@@ -35,6 +35,10 @@ public class Organization implements Serializable {
         return url;
     }
 
+    public List<PositionDetails> getPositionDetailsList() {
+        return positionDetailsList;
+    }
+
     public Organization addPositionDetails(String position, LocalDate startDate, LocalDate endDate, String description) {
         this.positionDetailsList.add(new PositionDetails(position, startDate, endDate, description));
         return this;
