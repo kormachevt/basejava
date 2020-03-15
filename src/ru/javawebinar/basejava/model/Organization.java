@@ -39,6 +39,10 @@ public class Organization implements Serializable {
         return positionDetailsList;
     }
 
+    public void setPositionDetailsList(List<PositionDetails> positionDetailsList) {
+        this.positionDetailsList = positionDetailsList;
+    }
+
     public Organization addPositionDetails(String position, LocalDate startDate, LocalDate endDate, String description) {
         this.positionDetailsList.add(new PositionDetails(position, startDate, endDate, description));
         return this;
@@ -74,9 +78,9 @@ public class Organization implements Serializable {
         private String description;
 
         public PositionDetails(String title, LocalDate startDate, LocalDate endDate, String description) {
-            this.title = title;
-            this.startDate = startDate;
-            this.endDate = endDate;
+            this.title = Objects.requireNonNull(title);
+            this.startDate = Objects.requireNonNull(startDate);
+            this.endDate = Objects.requireNonNull(endDate);
             this.description = description;
         }
 
