@@ -1,6 +1,9 @@
 package ru.javawebinar.basejava.util;
 
-public interface ThrowingBiConsumer<T, U, E extends Exception> {
+import java.io.DataOutputStream;
+import java.io.IOException;
 
-    void accept(T t, U u) throws E;
+public interface ThrowingBiConsumer<T> {
+
+    void accept(T t, DataOutputStream u) throws IOException;
 }

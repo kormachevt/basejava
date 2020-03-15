@@ -1,7 +1,10 @@
 package ru.javawebinar.basejava.util;
 
-@FunctionalInterface
-public interface ThrowingFunction<T, R, E extends Exception> {
+import java.io.DataInputStream;
+import java.io.IOException;
 
-    R apply(T t) throws E;
+@FunctionalInterface
+public interface ThrowingFunction<R> {
+
+    R apply(DataInputStream dis) throws IOException;
 }
