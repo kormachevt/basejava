@@ -50,8 +50,16 @@ public class Resume implements Serializable {
         contactsByType.put(type, value);
     }
 
+    public void setContacts(Map<ContactType, String> contactsByType) {
+        this.contactsByType = contactsByType;
+    }
+
     public void setSection(SectionType type, Section section) {
         sectionsByType.put(type, section);
+    }
+
+    public void setSections(Map<SectionType, Section> sectionsByType) {
+        this.sectionsByType = sectionsByType;
     }
 
     public Map<SectionType, Section> getSections() {
