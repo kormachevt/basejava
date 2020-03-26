@@ -2,32 +2,51 @@ package ru.javawebinar.basejava;
 
 
 public class MainDeadlock {
-    public static final int THREADS_NUMBER = 1000;
+    final A a = new A();
+    final B b = new B();
+
 
     public static void main(String[] args) {
+        MainDeadlock mainDeadlock = new MainDeadlock();
 
-        String shortString = "abc";
-        String longString = "ABCabc";
+        Thread thread1 = new Thread(mainDeadlock::add);
 
-        for (int i = 0; i < THREADS_NUMBER; i++) {
-            Thread thread = new Thread(() -> {
-                for (int j = 0; j < 100; j++) {
-                    if (Math.random() > 0.5) {
-                        compare(shortString, longString);
-                    } else {
-                        compare(longString, shortString);
-                    }
-                }
-            });
-            thread.start();
+        Thread thread2 = new Thread(mainDeadlock::subtract);
+
+        thread1.start();
+        thread2.start();
+    }
+
+    public int add() {
+        synchronized (a) {
+            System.out.println("add got a");
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+            }
+            synchronized (b) {
+                System.out.println("add got b");
+                return a.i + b.i;
+            }
+        }
+
+    }
+
+    public int subtract() {
+        synchronized (b) {
+            System.out.println("subtract got b");
+            synchronized (a) {
+                System.out.println("subtract got a");
+                return a.i - b.i;
+            }
         }
     }
 
-    public static int compare(String alfa, String bravo) {
-        synchronized (alfa) {
-            synchronized (bravo) {
-                return Integer.compare(alfa.length(), bravo.length());
-            }
-        }
+    private class B {
+        private int i = 20;
+    }
+
+    private class A {
+        private int i = 10;
     }
 }
