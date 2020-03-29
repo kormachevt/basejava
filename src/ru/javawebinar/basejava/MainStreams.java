@@ -38,7 +38,7 @@ public class MainStreams {
     public static List<Integer> oddOrEven(List<Integer> integers) {
         int sum = integers.stream().mapToInt(s -> s).sum();
         return integers.stream()
-                .filter((s) -> ((sum % 2 == 0) == (s % 2 != 0)))
+                .filter((s) -> (sum % 2 != s % 2))
                 .collect(Collectors.toList());
     }
 }
