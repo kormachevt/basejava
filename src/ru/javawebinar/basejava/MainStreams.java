@@ -28,9 +28,9 @@ public class MainStreams {
         AtomicInteger index = new AtomicInteger();
         return IntStream.of(values)
                 .distinct()
-                .map(i -> -i)
+                .peek(i -> index.incrementAndGet())
                 .sorted()
-                .map(i -> (int)(-i * Math.pow(10,index.getAndIncrement())))
+                .map(i -> (int) (i * Math.pow(10, index.decrementAndGet())))
                 .sum();
     }
 
