@@ -2,7 +2,9 @@ package ru.javawebinar.basejava;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class MainStreams {
 
@@ -23,12 +25,13 @@ public class MainStreams {
      * @return минимально возможное число, составленное из набора уникальных цифр
      */
     public static int minValue(int[] values) {
-        List<Integer> list = Arrays.stream(values).boxed().collect(Collectors.toList());
-        final long[] size = {list.stream().distinct().count()};
-        return list.stream().distinct().sorted().map((s) -> {
-            size[0] = size[0] - 1;
-            return (int) (s * Math.pow(10, size[0]));
-        }).mapToInt(s -> s).sum();
+        AtomicInteger index = new AtomicInteger();
+        return IntStream.of(values)
+                .distinct()
+                .map(i -> -i)
+                .sorted()
+                .map(i -> (int)(-i * Math.pow(10,index.getAndIncrement())))
+                .sum();
     }
 
     /**
@@ -38,10 +41,8 @@ public class MainStreams {
      */
     public static List<Integer> oddOrEven(List<Integer> integers) {
         int sum = integers.stream().mapToInt(s -> s).sum();
-        if (sum % 2 == 0) {
-            return integers.stream().filter((s) -> (s % 2 != 0)).collect(Collectors.toList());
-        } else {
-            return integers.stream().filter((s) -> (s % 2 == 0)).collect(Collectors.toList());
-        }
+        return integers.stream()
+                .filter((s) -> ((sum % 2 == 0) == (s % 2 != 0)))
+                .collect(Collectors.toList());
     }
 }
