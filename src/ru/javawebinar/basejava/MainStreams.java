@@ -2,7 +2,6 @@ package ru.javawebinar.basejava;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -25,13 +24,10 @@ public class MainStreams {
      * @return минимально возможное число, составленное из набора уникальных цифр
      */
     public static int minValue(int[] values) {
-        AtomicInteger index = new AtomicInteger();
         return IntStream.of(values)
                 .distinct()
-                .peek(i -> index.incrementAndGet())
                 .sorted()
-                .map(i -> (int) (i * Math.pow(10, index.decrementAndGet())))
-                .sum();
+                .reduce((p, c)-> (10 * p) + c).orElse(0);
     }
 
     /**
