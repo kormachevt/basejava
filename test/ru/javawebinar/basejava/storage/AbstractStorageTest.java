@@ -2,11 +2,11 @@ package ru.javawebinar.basejava.storage;
 
 import org.junit.Before;
 import org.junit.Test;
+import ru.javawebinar.basejava.Config;
 import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
 
-import java.io.File;
 import java.util.List;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 import static ru.javawebinar.basejava.storage.ResumeTestData.*;
 
 public abstract class AbstractStorageTest {
-    protected static final String STORAGE_DIR = ".//storage";
+    protected static final String STORAGE_DIR = Config.get().getStorageDir();
 
     protected Storage storage;
 
