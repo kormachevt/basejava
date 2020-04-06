@@ -33,7 +33,7 @@ public class PathStorage extends AbstractStorage<Path> {
         try {
             return (Files.list(directory));
         } catch (IOException e) {
-            throw new StorageException("IO error -  error", null);
+            throw new StorageException("IO error -  error");
         }
     }
 
