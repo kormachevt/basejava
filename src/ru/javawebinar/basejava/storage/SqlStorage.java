@@ -2,7 +2,7 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
-import ru.javawebinar.basejava.sql.TransactionExecutor;
+import ru.javawebinar.basejava.sql.SqlHelper;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,12 +12,12 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public class SqlStorage implements Storage {
-    private final TransactionExecutor transaction;
+    private final SqlHelper transaction;
     private static final Logger LOG = Logger.getLogger(AbstractStorage.class.getName());
 
 
     public SqlStorage() {
-        transaction = new TransactionExecutor();
+        transaction = new SqlHelper();
     }
 
     @Override

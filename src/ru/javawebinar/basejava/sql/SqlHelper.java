@@ -11,7 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Logger;
 
-public class TransactionExecutor {
+public class SqlHelper {
     private static final String dbUrl = Config.get().getDbUrl();
     private static final String dbUser = Config.get().getDbUser();
     private static final String dbPassword = Config.get().getDbPassword();
@@ -19,7 +19,7 @@ public class TransactionExecutor {
     private static final Logger LOG = Logger.getLogger(AbstractStorage.class.getName());
 
 
-    public TransactionExecutor() {
+    public SqlHelper() {
         this.connectionFactory = () -> DriverManager.getConnection(dbUrl, dbUser, dbPassword);
     }
 
