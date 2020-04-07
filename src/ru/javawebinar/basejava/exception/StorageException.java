@@ -18,7 +18,7 @@ public class StorageException extends RuntimeException {
     }
 
     public StorageException(String message, Exception e) {
-        this(e.getMessage(), null, e);
+        this(message, null, e);
     }
 
     public StorageException(Exception e) {

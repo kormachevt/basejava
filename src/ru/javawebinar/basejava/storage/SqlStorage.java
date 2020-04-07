@@ -6,6 +6,7 @@ import ru.javawebinar.basejava.sql.TransactionExecutor;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -30,7 +31,7 @@ public class SqlStorage implements Storage {
         transaction.execute("INSERT INTO resume(uuid,full_name) VALUES (?,?)", (ps) -> {
             ps.setString(1, resume.getUuid());
             ps.setString(2, resume.getFullName());
-            return ps.execute();
+            return ps.executeUpdate();
         });
     }
 
@@ -38,9 +39,9 @@ public class SqlStorage implements Storage {
     public void update(Resume resume) {
         LOG.info("Update " + resume);
         transaction.execute("UPDATE resume SET full_name = ? WHERE uuid = ?", (ps) -> {
-            ps.setString(1, resume.getUuid());
-            ps.setString(2, resume.getFullName());
-            return ps.execute();
+            ps.setString(1, resume.getFullName());
+            ps.setString(2, resume.getUuid());
+            return doUpdate(ps, resume.getUuid());
         });
     }
 
@@ -62,7 +63,7 @@ public class SqlStorage implements Storage {
         LOG.info("Delete " + uuid);
         transaction.execute("DELETE FROM resume r WHERE r.uuid=?", (ps -> {
             ps.setString(1, uuid);
-            return ps.execute();
+            return doUpdate(ps, uuid);
         }));
     }
 
@@ -87,5 +88,14 @@ public class SqlStorage implements Storage {
             rs.next();
             return rs.getInt("rowcount");
         }));
+    }
+
+    private int doUpdate(PreparedStatement ps, String uuid) throws SQLException {
+        int updatedRows = ps.executeUpdate();
+        if(updatedRows == 0){
+            LOG.warning("The Resume [" + uuid + "] is not exist");
+            throw new NotExistStorageException(uuid);
+        }
+        return updatedRows;
     }
 }
