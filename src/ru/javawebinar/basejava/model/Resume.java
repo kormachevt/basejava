@@ -46,7 +46,7 @@ public class Resume implements Serializable {
         return contactsByType;
     }
 
-    public void setContact(ContactType type, String value) {
+    public void addContact(ContactType type, String value) {
         contactsByType.put(type, value);
     }
 

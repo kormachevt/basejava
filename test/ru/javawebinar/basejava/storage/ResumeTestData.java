@@ -40,13 +40,13 @@ public class ResumeTestData {
     }
 
     private static Resume fillWithData(Resume resume){
-        resume.setContact(ContactType.PHONE_NUMBER, "+7(921) 855-0482");
-        resume.setContact(ContactType.SKYPE, "skype:grigory.kislin");
-        resume.setContact(ContactType.EMAIL, "gkislin@yandex.ru");
-        resume.setContact(ContactType.LIKEDIN_PROFILE, "https://www.linkedin.com/in/gkislin");
-        resume.setContact(ContactType.GITHUB_PROFILE, "https://github.com/gkislin");
-        resume.setContact(ContactType.STACKOVERFLOW_PROFILE, "https://stackoverflow.com/users/548473");
-        resume.setContact(ContactType.HOMEPAGE, "http://gkislin.ru/");
+        resume.addContact(ContactType.PHONE_NUMBER, "+7(921) 855-0482");
+        resume.addContact(ContactType.SKYPE, "skype:grigory.kislin");
+        resume.addContact(ContactType.EMAIL, "gkislin@yandex.ru");
+        resume.addContact(ContactType.LIKEDIN_PROFILE, "https://www.linkedin.com/in/gkislin");
+        resume.addContact(ContactType.GITHUB_PROFILE, "https://github.com/gkislin");
+        resume.addContact(ContactType.STACKOVERFLOW_PROFILE, "https://stackoverflow.com/users/548473");
+        resume.addContact(ContactType.HOMEPAGE, "http://gkislin.ru/");
 
 
         TextSection objectiveSection = new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям");
