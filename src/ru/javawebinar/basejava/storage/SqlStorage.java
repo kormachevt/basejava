@@ -137,7 +137,7 @@ public class SqlStorage implements Storage {
         return updatedRows;
     }
 
-    private Object upsertContacts(Resume resume, Connection conn) throws SQLException {
+    private void upsertContacts(Resume resume, Connection conn) throws SQLException {
         Array contactTypes = conn.createArrayOf("TEXT", resume.getContacts().keySet().toArray());
         try (PreparedStatement ps = conn.prepareStatement("DELETE FROM contact WHERE (resume_uuid=? AND type <> ALL (?))")) {
             ps.setString(1, resume.getUuid());
@@ -156,6 +156,5 @@ public class SqlStorage implements Storage {
             }
             ps.executeBatch();
         }
-        return null;
     }
 }
