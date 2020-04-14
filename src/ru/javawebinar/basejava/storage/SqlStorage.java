@@ -1,14 +1,14 @@
 package ru.javawebinar.basejava.storage;
 
+import org.apache.commons.collections4.MultiValuedMap;
+import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.ContactType;
 import ru.javawebinar.basejava.model.Resume;
 import ru.javawebinar.basejava.sql.SqlHelper;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class SqlStorage implements Storage {
@@ -47,6 +47,14 @@ public class SqlStorage implements Storage {
                 ps.setString(1, resume.getFullName());
                 ps.setString(2, resume.getUuid());
                 doUpdate(ps, resume.getUuid());
+            }
+            Array contactTypes = conn.createArrayOf("TEXT", resume.getContacts().keySet().toArray());
+            try (PreparedStatement ps = conn.prepareStatement("" +
+                                                                      "  DELETE FROM contact  " +
+                                                                      "    WHERE (resume_uuid=? AND type <> ALL (?))  ")) {
+                ps.setString(1, resume.getUuid());
+                ps.setArray(2, contactTypes);
+                ps.execute();
             }
             upsertContacts(resume, conn);
             return null;
@@ -92,31 +100,37 @@ public class SqlStorage implements Storage {
 
     @Override
     public List<Resume> getAllSorted() {
-        LOG.info("GetAllSorted");
-        ArrayList<Resume> resumeList = new ArrayList<>();
+        LOG.info("Get sorted list of Resumes");
+        Map<String, Resume> resumesByUuid = new LinkedHashMap<>();
         sqlHelper.transactionalExecute(conn -> {
             try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM resume ORDER BY full_name, uuid")) {
                 ResultSet rs = ps.executeQuery();
 
                 while (rs.next()) {
-                    Resume resume = new Resume(rs.getString("uuid"), rs.getString("full_name"));
-                    resumeList.add(resume);
+                    String uuid = rs.getString("uuid");
+                    String fullName = rs.getString("full_name");
+                    resumesByUuid.put(uuid, new Resume(uuid, fullName));
                 }
             }
+            MultiValuedMap<String, Map.Entry<ContactType, String>> contactsByUuid = new ArrayListValuedHashMap<>();
             try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM contact")) {
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     String resumeUuid = rs.getString("resume_uuid");
                     String contactType = rs.getString("type");
                     String contactValue = rs.getString("value");
-                    resumeList.stream()
-                            .filter(resume -> resumeUuid.equals(resume.getUuid()))
-                            .forEach(resume -> resume.addContact(ContactType.valueOf(contactType), contactValue));
+                    contactsByUuid.put(resumeUuid, new AbstractMap.SimpleEntry<>(ContactType.valueOf(contactType), contactValue));
+                }
+            }
+            for (String uuid : contactsByUuid.keySet()) {
+                Collection<Map.Entry<ContactType, String>> resumeContacts = contactsByUuid.get(uuid);
+                for (Map.Entry<ContactType, String> contactEntry : resumeContacts) {
+                    resumesByUuid.get(uuid).addContact(contactEntry.getKey(), contactEntry.getValue());
                 }
             }
             return null;
         });
-        return resumeList;
+        return new ArrayList<>(resumesByUuid.values());
     }
 
     @Override
@@ -138,15 +152,10 @@ public class SqlStorage implements Storage {
     }
 
     private void upsertContacts(Resume resume, Connection conn) throws SQLException {
-        Array contactTypes = conn.createArrayOf("TEXT", resume.getContacts().keySet().toArray());
-        try (PreparedStatement ps = conn.prepareStatement("DELETE FROM contact WHERE (resume_uuid=? AND type <> ALL (?))")) {
-            ps.setString(1, resume.getUuid());
-            ps.setArray(2, contactTypes);
-            ps.execute();
-        }
-        try (PreparedStatement ps = conn.prepareStatement("INSERT INTO contact (resume_uuid, type, value) " +
-                                                             "VALUES (?,?,?) ON CONFLICT (type,resume_uuid) " +
-                                                                "DO UPDATE SET value=?")) {
+        try (PreparedStatement ps = conn.prepareStatement("" +
+                                                                  "  INSERT INTO contact(resume_uuid, type, value)" +
+                                                                  "    VALUES (?,?,?) ON CONFLICT (type,resume_uuid) " +
+                                                                  "      DO UPDATE SET value=?  ")) {
             for (Map.Entry<ContactType, String> e : resume.getContacts().entrySet()) {
                 ps.setString(1, resume.getUuid());
                 ps.setString(2, e.getKey().name());
