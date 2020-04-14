@@ -23,5 +23,5 @@ create table contact
 
 alter table contact owner to postgres;
 
-create index contact_uuid_type_index
+create unique index contact_unique_uuid_type_index
     on contact (resume_uuid, type);
