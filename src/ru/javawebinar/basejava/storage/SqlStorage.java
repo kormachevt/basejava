@@ -1,14 +1,15 @@
 package ru.javawebinar.basejava.storage;
 
-import org.apache.commons.collections4.MultiValuedMap;
-import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.ContactType;
 import ru.javawebinar.basejava.model.Resume;
 import ru.javawebinar.basejava.sql.SqlHelper;
 
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public class SqlStorage implements Storage {
@@ -112,20 +113,13 @@ public class SqlStorage implements Storage {
                     resumesByUuid.put(uuid, new Resume(uuid, fullName));
                 }
             }
-            MultiValuedMap<String, Map.Entry<ContactType, String>> contactsByUuid = new ArrayListValuedHashMap<>();
             try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM contact")) {
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     String resumeUuid = rs.getString("resume_uuid");
                     String contactType = rs.getString("type");
                     String contactValue = rs.getString("value");
-                    contactsByUuid.put(resumeUuid, new AbstractMap.SimpleEntry<>(ContactType.valueOf(contactType), contactValue));
-                }
-            }
-            for (String uuid : contactsByUuid.keySet()) {
-                Collection<Map.Entry<ContactType, String>> resumeContacts = contactsByUuid.get(uuid);
-                for (Map.Entry<ContactType, String> contactEntry : resumeContacts) {
-                    resumesByUuid.get(uuid).addContact(contactEntry.getKey(), contactEntry.getValue());
+                    resumesByUuid.get(resumeUuid).addContact(ContactType.valueOf(contactType), contactValue);
                 }
             }
             return null;
