@@ -49,14 +49,7 @@ public class SqlStorage implements Storage {
                 ps.setString(2, resume.getUuid());
                 doUpdate(ps, resume.getUuid());
             }
-            Array contactTypes = conn.createArrayOf("TEXT", resume.getContacts().keySet().toArray());
-            try (PreparedStatement ps = conn.prepareStatement("" +
-                                                                      "  DELETE FROM contact  " +
-                                                                      "    WHERE (resume_uuid=? AND type <> ALL (?))  ")) {
-                ps.setString(1, resume.getUuid());
-                ps.setArray(2, contactTypes);
-                ps.execute();
-            }
+            deleteContacts(resume, conn);
             upsertContacts(resume, conn);
             return null;
         });
@@ -158,6 +151,17 @@ public class SqlStorage implements Storage {
                 ps.addBatch();
             }
             ps.executeBatch();
+        }
+    }
+
+    private void deleteContacts(Resume resume, Connection conn) throws SQLException {
+        Array contactTypes = conn.createArrayOf("TEXT", resume.getContacts().keySet().toArray());
+        try (PreparedStatement ps = conn.prepareStatement("" +
+                                                                  "  DELETE FROM contact  " +
+                                                                  "    WHERE (resume_uuid=? AND type <> ALL (?))  ")) {
+            ps.setString(1, resume.getUuid());
+            ps.setArray(2, contactTypes);
+            ps.execute();
         }
     }
 }
