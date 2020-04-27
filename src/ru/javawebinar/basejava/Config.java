@@ -4,8 +4,9 @@ import java.io.*;
 import java.util.Properties;
 
 public class Config {
+    private static final String PROPS_PATH = "./config/resumes.properties";
     private static final Config INSTANCE = new Config();
-    protected static final File PROPS = new File(".//storage//resumes.properties");
+    protected static final File PROPS = new File(PROPS_PATH);
     private Properties props = new Properties();
     private String storageDir;
 
@@ -14,7 +15,7 @@ public class Config {
     }
 
     private Config() {
-        try (InputStream is = new FileInputStream("./config/resumes.properties")) {
+        try (InputStream is = new FileInputStream(PROPS_PATH)) {
             props.load(is);
             storageDir = props.getProperty("storage.dir");
         } catch (FileNotFoundException e) {

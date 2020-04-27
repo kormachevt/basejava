@@ -1,12 +1,13 @@
 create table resume
 (
-	uuid varchar(36) not null
-		constraint resume_pk
-			primary key,
-	full_name text not null
+    uuid      varchar(36) not null
+        constraint resume_pk
+            primary key,
+    full_name text        not null
 );
 
-alter table resume owner to postgres;
+alter table resume
+    owner to postgres;
 
 create table contact
 (
@@ -42,9 +43,6 @@ create table section
 
 alter table section
     owner to postgres;
-
-create unique index section_id_uindex
-    on section (id);
 
 create unique index section_resume_uuid_type_uindex
     on section (resume_uuid, type);

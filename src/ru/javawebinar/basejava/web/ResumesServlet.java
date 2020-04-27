@@ -13,10 +13,10 @@ import java.util.List;
 public class ResumesServlet extends HttpServlet {
     private Storage storage;
 
-    {
+    @Override
+    public void init() {
         storage = new SqlStorage();
     }
-
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
 
