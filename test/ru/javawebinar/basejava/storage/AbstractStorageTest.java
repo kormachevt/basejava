@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static ru.javawebinar.basejava.storage.ResumeTestData.*;
+import static ru.javawebinar.basejava.TestData.*;
 
 public abstract class AbstractStorageTest {
     protected static final String STORAGE_DIR = Config.get().getStorageDir();

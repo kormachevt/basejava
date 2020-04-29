@@ -1,4 +1,4 @@
-package ru.javawebinar.basejava.storage;
+package ru.javawebinar.basejava;
 
 import ru.javawebinar.basejava.model.*;
 
@@ -6,28 +6,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class ResumeTestData {
-    static final String UUID_1 = "uuid1";
-    static final String UUID_2 = "uuid2";
-    static final String UUID_3 = "uuid3";
-    static final String UUID_4 = "uuid4";
-    static final String NOT_EXISTED_UUID = UUID.randomUUID().toString();
-    static final String FULL_NAME_1 = "c";
-    static final String FULL_NAME_2 = "b";
-    static final String FULL_NAME_3 = "a";
-    static final String FULL_NAME_4 = "b";
-    static final String NOT_EXISTED_FULL_NAME = UUID.randomUUID().toString();
+public class TestData {
+    public static final String UUID_1 = "uuid1";
+    public static final String UUID_2 = "uuid2";
+    public static final String UUID_3 = "uuid3";
+    public static final String UUID_4 = "uuid4";
+    public static final String NOT_EXISTED_UUID = UUID.randomUUID().toString();
+    public static final String FULL_NAME_1 = "c";
+    public static final String FULL_NAME_2 = "b";
+    public static final String FULL_NAME_3 = "a";
+    public static final String FULL_NAME_4 = "b";
+    public static final String NOT_EXISTED_FULL_NAME = UUID.randomUUID().toString();
 //    static final Resume RESUME_1 = new Resume(UUID_1, FULL_NAME_1);
 //    static final Resume RESUME_2 = new Resume(UUID_2, FULL_NAME_2);
 //    static final Resume RESUME_3 = new Resume(UUID_3, FULL_NAME_3);
 //    static final Resume RESUME_4 = new Resume(UUID_4, FULL_NAME_4);
 //    static final Resume RESUME_NOT_EXISTED = new Resume(NOT_EXISTED_UUID, NOT_EXISTED_FULL_NAME);
 
-    static final Resume RESUME_1 = fillWithData(new Resume(UUID_1, FULL_NAME_1));
-    static final Resume RESUME_2 = fillWithData(new Resume(UUID_2, FULL_NAME_2));
-    static final Resume RESUME_3 = fillWithData(new Resume(UUID_3, FULL_NAME_3));
-    static final Resume RESUME_4 = fillWithData(new Resume(UUID_4, FULL_NAME_4));
-    static final Resume RESUME_NOT_EXISTED = fillWithData(new Resume(NOT_EXISTED_UUID, NOT_EXISTED_FULL_NAME));
+    public static final Resume RESUME_1 = fillWithData(new Resume(UUID_1, FULL_NAME_1));
+    public static final Resume RESUME_2 = fillWithData(new Resume(UUID_2, FULL_NAME_2));
+    public static final Resume RESUME_3 = fillWithData(new Resume(UUID_3, FULL_NAME_3));
+    public static final Resume RESUME_4 = fillWithData(new Resume(UUID_4, FULL_NAME_4));
+    public static final Resume RESUME_NOT_EXISTED = fillWithData(new Resume(NOT_EXISTED_UUID, NOT_EXISTED_FULL_NAME));
 
     public static void main(String[] args) {
         Resume resume = new Resume("test resume fullname");
