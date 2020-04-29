@@ -171,10 +171,10 @@ public class TestData {
 //                                                      null));
 //        OrganizationSection educationSection = new OrganizationSection(educationList);
 //
-        resume.setSection(SectionType.PERSONAL, personalSection);
-        resume.setSection(SectionType.OBJECTIVE, objectiveSection);
-        resume.setSection(SectionType.ACHIEVEMENTS, achievementsSection);
-        resume.setSection(SectionType.QUALIFICATIONS, qualificationsSection);
+        resume.addSection(SectionType.PERSONAL, personalSection);
+        resume.addSection(SectionType.OBJECTIVE, objectiveSection);
+        resume.addSection(SectionType.ACHIEVEMENTS, achievementsSection);
+        resume.addSection(SectionType.QUALIFICATIONS, qualificationsSection);
 //        resume.setSection(SectionType.EXPERIENCE, experienceSection);
 //        resume.setSection(SectionType.EDUCATION, educationSection);
 //

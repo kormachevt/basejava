@@ -235,12 +235,12 @@ public class SqlStorage implements Storage {
             switch (sectionType) {
                 case PERSONAL:
                 case OBJECTIVE:
-                    resume.setSection(sectionType, new TextSection(sectionValue));
+                    resume.addSection(sectionType, new TextSection(sectionValue));
                     break;
                 case ACHIEVEMENTS:
                 case QUALIFICATIONS:
                     List<String> listSectionContent = new ArrayList<>(Arrays.asList(sectionValue.split("\n")));
-                    resume.setSection(sectionType, new ListSection(listSectionContent));
+                    resume.addSection(sectionType, new ListSection(listSectionContent));
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + sectionType.name());

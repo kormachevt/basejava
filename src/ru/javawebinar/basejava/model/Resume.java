@@ -42,28 +42,32 @@ public class Resume implements Serializable {
         return fullName;
     }
 
+    public String getContact(ContactType contactType) {
+        return contactsByType.get(contactType);
+    }
+
     public Map<ContactType, String> getContacts() {
         return contactsByType;
+    }
+
+    public Map<SectionType, Section> getSections() {
+        return sectionsByType;
     }
 
     public void addContact(ContactType type, String value) {
         contactsByType.put(type, value);
     }
 
-    public void setContacts(Map<ContactType, String> contactsByType) {
+    public void addContacts(Map<ContactType, String> contactsByType) {
         this.contactsByType = contactsByType;
     }
 
-    public void setSection(SectionType type, Section section) {
+    public void addSection(SectionType type, Section section) {
         sectionsByType.put(type, section);
     }
 
-    public void setSections(Map<SectionType, Section> sectionsByType) {
+    public void addSections(Map<SectionType, Section> sectionsByType) {
         this.sectionsByType = sectionsByType;
-    }
-
-    public Map<SectionType, Section> getSections() {
-        return sectionsByType;
     }
 
     @Override

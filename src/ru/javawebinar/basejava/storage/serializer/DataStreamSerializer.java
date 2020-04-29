@@ -46,7 +46,7 @@ public class DataStreamSerializer implements StreamSerializer {
     private Resume readContacts(Resume resume, DataInputStream dis) throws IOException {
         Set<Map.Entry<ContactType, String>> contactsSet = new HashSet<>();
         readCollection(contactsSet, dis, () -> new AbstractMap.SimpleEntry<>(ContactType.valueOf(dis.readUTF()), dis.readUTF()));
-        resume.setContacts(setToMap(contactsSet));
+        resume.addContacts(setToMap(contactsSet));
         return resume;
     }
 
@@ -128,7 +128,7 @@ public class DataStreamSerializer implements StreamSerializer {
             }
             return new AbstractMap.SimpleEntry<>(sectionType, section);
         });
-        resume.setSections(setToMap(sectionsSet));
+        resume.addSections(setToMap(sectionsSet));
         return resume;
     }
 
