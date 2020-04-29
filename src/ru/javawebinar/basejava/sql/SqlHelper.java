@@ -1,27 +1,17 @@
 package ru.javawebinar.basejava.sql;
 
-import ru.javawebinar.basejava.Config;
 import ru.javawebinar.basejava.exception.StorageException;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class SqlHelper {
-    private static final String dbUrl = Config.get().getDbUrl();
-    private static final String dbUser = Config.get().getDbUser();
-    private static final String dbPassword = Config.get().getDbPassword();
     private final ConnectionFactory connectionFactory;
 
 
-    public SqlHelper() {
-        this.connectionFactory = () -> {
-            if (!org.postgresql.Driver.isRegistered()) {
-                org.postgresql.Driver.register();
-            }
-            return DriverManager.getConnection(dbUrl, dbUser, dbPassword);
-        };
+    public SqlHelper(ConnectionFactory connectionFactory) {
+        this.connectionFactory = connectionFactory;
     }
 
     public <T> T execute(String sql, PreparedStatementTransformer<T> statementTransformer) {
