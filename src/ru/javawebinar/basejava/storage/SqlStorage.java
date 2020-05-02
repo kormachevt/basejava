@@ -1,11 +1,18 @@
 package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.exception.NotExistStorageException;
-import ru.javawebinar.basejava.model.*;
+import ru.javawebinar.basejava.model.ContactType;
+import ru.javawebinar.basejava.model.Resume;
+import ru.javawebinar.basejava.model.Section;
+import ru.javawebinar.basejava.model.SectionType;
 import ru.javawebinar.basejava.sql.SqlHelper;
+import ru.javawebinar.basejava.util.JsonParser;
 
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public class SqlStorage implements Storage {
@@ -184,23 +191,8 @@ public class SqlStorage implements Storage {
                 Section section = e.getValue();
                 ps.setString(1, resume.getUuid());
                 ps.setString(2, sectionType.name());
-
-                switch (e.getKey()) {
-                    case PERSONAL:
-                    case OBJECTIVE:
-                        ps.setString(3, ((TextSection) section).getText());
-                        ps.setString(4, ((TextSection) section).getText());
-                        break;
-                    case ACHIEVEMENTS:
-                    case QUALIFICATIONS:
-                        List<String> listSectionContent = ((ListSection) section).getList();
-                        String joinedListSectionContent = String.join("\n", listSectionContent);
-                        ps.setString(3, joinedListSectionContent);
-                        ps.setString(4, joinedListSectionContent);
-                        break;
-                    default:
-                        throw new IllegalStateException("Unexpected value: " + sectionType.name());
-                }
+                ps.setString(3, JsonParser.write(section, Section.class));
+                ps.setString(4, JsonParser.write(section, Section.class));
                 ps.addBatch();
             }
             ps.executeBatch();
@@ -232,21 +224,7 @@ public class SqlStorage implements Storage {
     private void readSection(Resume resume, String sectionTypeName, String sectionValue) {
         if (sectionValue != null && sectionTypeName != null) {
             SectionType sectionType = SectionType.valueOf(sectionTypeName);
-            switch (sectionType) {
-                case PERSONAL:
-                case OBJECTIVE:
-                    resume.addSection(sectionType, new TextSection(sectionValue));
-                    break;
-                case ACHIEVEMENTS:
-                case QUALIFICATIONS:
-                    List<String> listSectionContent = new ArrayList<>(Arrays.asList(sectionValue.split("\n")));
-                    resume.addSection(sectionType, new ListSection(listSectionContent));
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + sectionType.name());
-
-            }
-
+            resume.addSection(sectionType, JsonParser.read(sectionValue, Section.class));
         }
     }
 

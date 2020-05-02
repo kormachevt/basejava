@@ -2,9 +2,13 @@ package ru.javawebinar.basejava;
 
 import ru.javawebinar.basejava.model.*;
 
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import static ru.javawebinar.basejava.util.DateUtil.of;
 
 public class TestData {
     public static final String UUID_1 = "uuid1";
@@ -75,109 +79,109 @@ public class TestData {
         qualificationsList.add("Отличное знание и опыт применения концепций ООП, SOA, шаблонов проектрирования, архитектурных шаблонов, UML, функционального программирования");
         qualificationsList.add("Родной русский, английский \"upper intermediate\"");
         ListSection qualificationsSection = new ListSection(qualificationsList);
-//
-//
-//        List<Organization> experienceList = new ArrayList<>();
-//        experienceList.add(new Organization("Java Online Projects", "http://javaops.ru/")
-//                                   .addPositionDetails("Автор проекта.",
-//                                                       of(2013, Month.OCTOBER),
-//                                                       LocalDate.now(),
-//                                                       "Создание, организация и проведение Java онлайн проектов и стажировок."));
-//
-//        experienceList.add(new Organization("Wrike", "https://www.wrike.com/")
-//                                   .addPositionDetails("Старший разработчик (backend)",
-//                                                       of(2014, Month.OCTOBER),
-//                                                       of(2016, Month.JANUARY),
-//                                                       "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."));
-//
-//        experienceList.add(new Organization("RIT Center", null)
-//                                   .addPositionDetails("Java архитектор",
-//                                                       of(2012, Month.APRIL),
-//                                                       of(2014, Month.OCTOBER),
-//                                                       "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."));
-//
-//        experienceList.add(new Organization("Luxoft (Deutsche Bank)", "http://www.luxoft.ru/")
-//                                   .addPositionDetails("Ведущий программист",
-//                                                       of(2010, Month.DECEMBER),
-//                                                       of(2012, Month.APRIL),
-//                                                       "Участие в проекте Deutsche Bank CRM (WebLogic, Hibernate, Spring, Spring MVC, SmartGWT, GWT, Jasper, Oracle). Реализация клиентской и серверной части CRM. Реализация RIA-приложения для администрирования, мониторинга и анализа результатов в области алгоритмического трейдинга. JPA, Spring, Spring-MVC, GWT, ExtGWT (GXT), Highstock, Commet, HTML5."));
-//
-//        experienceList.add(new Organization("Yota", "https://www.yota.ru/")
-//                                   .addPositionDetails("Ведущий специалист",
-//                                                       of(2008, Month.JUNE),
-//                                                       of(2010, Month.DECEMBER),
-//                                                       "Дизайн и имплементация Java EE фреймворка для отдела \"Платежные Системы\" (GlassFish v2.1, v3, OC4J, EJB3, JAX-WS RI 2.1, Servlet 2.4, JSP, JMX, JMS, Maven2). Реализация администрирования, статистики и мониторинга фреймворка. Разработка online JMX клиента (Python/ Jython, Django, ExtJS)"));
-//
-//        experienceList.add(new Organization("Enkata", "http://enkata.com/")
-//                                   .addPositionDetails("Разработчик ПО",
-//                                                       of(2007, Month.MARCH),
-//                                                       of(2008, Month.JUNE),
-//                                                       "Реализация клиентской (Eclipse RCP) и серверной (JBoss 4.2, Hibernate 3.0, Tomcat, JMS) частей кластерного J2EE приложения (OLAP, Data mining)."));
-//
-//        experienceList.add(new Organization("Siemens AG", "https://www.siemens.com/ru/ru/home.html")
-//                                   .addPositionDetails("Разработчик ПО",
-//                                                       of(2005, Month.JANUARY),
-//                                                       of(2007, Month.FEBRUARY),
-//                                                       "Разработка информационной модели, проектирование интерфейсов, реализация и отладка ПО на мобильной IN платформе Siemens @vantage (Java, Unix)."));
-//
-//        experienceList.add(new Organization("Alcatel", "http://www.alcatel.ru/")
-//                                   .addPositionDetails("Инженер по аппаратному и программному тестированию",
-//                                                       of(2005, Month.JANUARY),
-//                                                       of(2007, Month.FEBRUARY),
-//                                                       "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM)."));
-//
-//        OrganizationSection experienceSection = new OrganizationSection(experienceList);
-//
-//
-//        List<Organization> educationList = new ArrayList<>();
-//        educationList.add(new Organization("Coursera", "https://www.coursera.org/course/progfun")
-//                                  .addPositionDetails("\"Functional Programming Principles in Scala\" by Martin Odersky",
-//                                                      of(2013, Month.MARCH),
-//                                                      of(2013, Month.MAY),
-//                                                      null));
-//
-//        educationList.add(new Organization("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366")
-//                                  .addPositionDetails("Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"",
-//                                                      of(2011, Month.APRIL),
-//                                                      of(2011, Month.FEBRUARY),
-//                                                      null));
-//
-//        educationList.add(new Organization("Siemens AG", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366")
-//                                  .addPositionDetails("3 месяца обучения мобильным IN сетям (Берлин)",
-//                                                      of(2005, Month.JANUARY),
-//                                                      of(2005, Month.APRIL),
-//                                                      null));
-//
-//        educationList.add(new Organization("Alcatel", "http://www.alcatel.ru/")
-//                                  .addPositionDetails("6 месяцев обучения цифровым телефонным сетям (Москва)",
-//                                                      of(1997, Month.SEPTEMBER),
-//                                                      of(2008, Month.MARCH),
-//                                                      null));
-//
-//        educationList.add(new Organization("Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики", "http://www.ifmo.ru/")
-//                                  .addPositionDetails("Аспирантура (программист С, С++)",
-//                                                      of(1993, Month.SEPTEMBER),
-//                                                      of(1996, Month.JULY),
-//                                                      null)
-//                                  .addPositionDetails("Инженер (программист Fortran, C)",
-//                                                      of(1987, Month.SEPTEMBER),
-//                                                      of(1993, Month.JULY),
-//                                                      null));
-//
-//        educationList.add(new Organization("Заочная физико-техническая школа при МФТИ", "http://www.school.mipt.ru/")
-//                                  .addPositionDetails("Закончил с отличием",
-//                                                      of(1984, Month.SEPTEMBER),
-//                                                      of(1987, Month.JUNE),
-//                                                      null));
-//        OrganizationSection educationSection = new OrganizationSection(educationList);
-//
+
+
+        List<Organization> experienceList = new ArrayList<>();
+        experienceList.add(new Organization("Java Online Projects", "http://javaops.ru/")
+                                   .addPositionDetails("Автор проекта.",
+                                                       of(2013, Month.OCTOBER),
+                                                       LocalDate.now(),
+                                                       "Создание, организация и проведение Java онлайн проектов и стажировок."));
+
+        experienceList.add(new Organization("Wrike", "https://www.wrike.com/")
+                                   .addPositionDetails("Старший разработчик (backend)",
+                                                       of(2014, Month.OCTOBER),
+                                                       of(2016, Month.JANUARY),
+                                                       "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."));
+
+        experienceList.add(new Organization("RIT Center", null)
+                                   .addPositionDetails("Java архитектор",
+                                                       of(2012, Month.APRIL),
+                                                       of(2014, Month.OCTOBER),
+                                                       "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."));
+
+        experienceList.add(new Organization("Luxoft (Deutsche Bank)", "http://www.luxoft.ru/")
+                                   .addPositionDetails("Ведущий программист",
+                                                       of(2010, Month.DECEMBER),
+                                                       of(2012, Month.APRIL),
+                                                       "Участие в проекте Deutsche Bank CRM (WebLogic, Hibernate, Spring, Spring MVC, SmartGWT, GWT, Jasper, Oracle). Реализация клиентской и серверной части CRM. Реализация RIA-приложения для администрирования, мониторинга и анализа результатов в области алгоритмического трейдинга. JPA, Spring, Spring-MVC, GWT, ExtGWT (GXT), Highstock, Commet, HTML5."));
+
+        experienceList.add(new Organization("Yota", "https://www.yota.ru/")
+                                   .addPositionDetails("Ведущий специалист",
+                                                       of(2008, Month.JUNE),
+                                                       of(2010, Month.DECEMBER),
+                                                       "Дизайн и имплементация Java EE фреймворка для отдела \"Платежные Системы\" (GlassFish v2.1, v3, OC4J, EJB3, JAX-WS RI 2.1, Servlet 2.4, JSP, JMX, JMS, Maven2). Реализация администрирования, статистики и мониторинга фреймворка. Разработка online JMX клиента (Python/ Jython, Django, ExtJS)"));
+
+        experienceList.add(new Organization("Enkata", "http://enkata.com/")
+                                   .addPositionDetails("Разработчик ПО",
+                                                       of(2007, Month.MARCH),
+                                                       of(2008, Month.JUNE),
+                                                       "Реализация клиентской (Eclipse RCP) и серверной (JBoss 4.2, Hibernate 3.0, Tomcat, JMS) частей кластерного J2EE приложения (OLAP, Data mining)."));
+
+        experienceList.add(new Organization("Siemens AG", "https://www.siemens.com/ru/ru/home.html")
+                                   .addPositionDetails("Разработчик ПО",
+                                                       of(2005, Month.JANUARY),
+                                                       of(2007, Month.FEBRUARY),
+                                                       "Разработка информационной модели, проектирование интерфейсов, реализация и отладка ПО на мобильной IN платформе Siemens @vantage (Java, Unix)."));
+
+        experienceList.add(new Organization("Alcatel", "http://www.alcatel.ru/")
+                                   .addPositionDetails("Инженер по аппаратному и программному тестированию",
+                                                       of(2005, Month.JANUARY),
+                                                       of(2007, Month.FEBRUARY),
+                                                       "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM)."));
+
+        OrganizationSection experienceSection = new OrganizationSection(experienceList);
+
+
+        List<Organization> educationList = new ArrayList<>();
+        educationList.add(new Organization("Coursera", "https://www.coursera.org/course/progfun")
+                                  .addPositionDetails("\"Functional Programming Principles in Scala\" by Martin Odersky",
+                                                      of(2013, Month.MARCH),
+                                                      of(2013, Month.MAY),
+                                                      null));
+
+        educationList.add(new Organization("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366")
+                                  .addPositionDetails("Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"",
+                                                      of(2011, Month.APRIL),
+                                                      of(2011, Month.FEBRUARY),
+                                                      null));
+
+        educationList.add(new Organization("Siemens AG", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366")
+                                  .addPositionDetails("3 месяца обучения мобильным IN сетям (Берлин)",
+                                                      of(2005, Month.JANUARY),
+                                                      of(2005, Month.APRIL),
+                                                      null));
+
+        educationList.add(new Organization("Alcatel", "http://www.alcatel.ru/")
+                                  .addPositionDetails("6 месяцев обучения цифровым телефонным сетям (Москва)",
+                                                      of(1997, Month.SEPTEMBER),
+                                                      of(2008, Month.MARCH),
+                                                      null));
+
+        educationList.add(new Organization("Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики", "http://www.ifmo.ru/")
+                                  .addPositionDetails("Аспирантура (программист С, С++)",
+                                                      of(1993, Month.SEPTEMBER),
+                                                      of(1996, Month.JULY),
+                                                      null)
+                                  .addPositionDetails("Инженер (программист Fortran, C)",
+                                                      of(1987, Month.SEPTEMBER),
+                                                      of(1993, Month.JULY),
+                                                      null));
+
+        educationList.add(new Organization("Заочная физико-техническая школа при МФТИ", "http://www.school.mipt.ru/")
+                                  .addPositionDetails("Закончил с отличием",
+                                                      of(1984, Month.SEPTEMBER),
+                                                      of(1987, Month.JUNE),
+                                                      null));
+        OrganizationSection educationSection = new OrganizationSection(educationList);
+
         resume.addSection(SectionType.PERSONAL, personalSection);
         resume.addSection(SectionType.OBJECTIVE, objectiveSection);
         resume.addSection(SectionType.ACHIEVEMENTS, achievementsSection);
         resume.addSection(SectionType.QUALIFICATIONS, qualificationsSection);
-//        resume.setSection(SectionType.EXPERIENCE, experienceSection);
-//        resume.setSection(SectionType.EDUCATION, educationSection);
-//
+        resume.addSection(SectionType.EXPERIENCE, experienceSection);
+        resume.addSection(SectionType.EDUCATION, educationSection);
+
         return resume;
     }
 }
