@@ -2,7 +2,6 @@ package ru.javawebinar.basejava;
 
 import ru.javawebinar.basejava.model.*;
 
-import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +40,7 @@ public class TestData {
 
     private static Resume fillWithData(Resume resume) {
         resume.addContact(ContactType.PHONE_NUMBER, "+7(921) 855-0482");
-        resume.addContact(ContactType.SKYPE, "skype:grigory.kislin");
+        resume.addContact(ContactType.SKYPE, "grigory.kislin");
         resume.addContact(ContactType.EMAIL, "gkislin@yandex.ru");
         resume.addContact(ContactType.LIKEDIN_PROFILE, "https://www.linkedin.com/in/gkislin");
         resume.addContact(ContactType.GITHUB_PROFILE, "https://github.com/gkislin");
@@ -85,7 +84,7 @@ public class TestData {
         experienceList.add(new Organization("Java Online Projects", "http://javaops.ru/")
                                    .addPositionDetails("Автор проекта.",
                                                        of(2013, Month.OCTOBER),
-                                                       LocalDate.now(),
+                                                       of(3000, Month.JANUARY),
                                                        "Создание, организация и проведение Java онлайн проектов и стажировок."));
 
         experienceList.add(new Organization("Wrike", "https://www.wrike.com/")
