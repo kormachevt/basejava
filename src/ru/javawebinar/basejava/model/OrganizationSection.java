@@ -20,6 +20,10 @@ public class OrganizationSection extends Section implements Serializable {
         return list;
     }
 
+    public void addOrganization(Organization organization) {
+        list.add(organization);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

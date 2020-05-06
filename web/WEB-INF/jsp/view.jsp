@@ -47,7 +47,6 @@
 
 
                         <c:forEach var="organization" items="${sectionEntry.value.getList()}">
-                            <%--                            <div class="container-fluid">--%>
                             <table class="table table-bordered">
                                 <tr class="d-flex">
                                     <td class="col-2"></td>

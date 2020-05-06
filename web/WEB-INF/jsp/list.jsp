@@ -13,6 +13,9 @@
 <section>
     <div class="container">
         <div class="row">
+            <a href="resume?uuid=&action=edit">
+                <button type="button" class="btn btn-success mb-4">Create</button>
+            </a>
             <table class="table table-striped col-12">
                 <thead>
                 <tr>

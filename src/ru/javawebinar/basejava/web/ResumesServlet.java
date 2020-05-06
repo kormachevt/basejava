@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ru.javawebinar.basejava.model.SectionType.*;
 import static ru.javawebinar.basejava.util.StringUtils.isNotEmptyString;
 
 public class ResumesServlet extends HttpServlet {
@@ -28,28 +29,17 @@ public class ResumesServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String uuid = request.getParameter("uuid");
         String fullName = request.getParameter("fullName");
-        Resume resume = storage.get(uuid);
+
+        boolean isCreate = "".equals(uuid);
+        Resume resume = isCreate ? new Resume(fullName) : storage.get(uuid);
         resume.setFullName(fullName);
         readContacts(resume, request);
-        for (SectionType type : SectionType.values()) {
-            switch (type) {
-                case PERSONAL:
-                case OBJECTIVE:
-                    readTextSection(resume, type, request);
-                    break;
-                case ACHIEVEMENTS:
-                case QUALIFICATIONS:
-                    readListSection(resume, type, request);
-                    break;
-                case EDUCATION:
-                case EXPERIENCE:
-                    readOrganizationSection(resume, type, request);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Section type " + type.name() + " is illegal");
-            }
+        readSections(resume, request);
+        if (isCreate) {
+            storage.save(resume);
+        } else {
+            storage.update(resume);
         }
-        storage.update(resume);
         response.sendRedirect("resume");
     }
 
@@ -57,6 +47,8 @@ public class ResumesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String uuid = request.getParameter("uuid");
         String action = request.getParameter("action");
+        String[] sectionsToAdd = request.getParameterValues("addNewItemToSection");
+
         if (action == null) {
             request.setAttribute("resumes", storage.getAllSorted());
             request.getRequestDispatcher("/WEB-INF/jsp/list.jsp").forward(request, response);
@@ -69,8 +61,13 @@ public class ResumesServlet extends HttpServlet {
                 response.sendRedirect("resume");
                 return;
             case "view":
-            case "edit":
                 resume = storage.get(uuid);
+                break;
+            case "edit":
+                resume = "".equals(uuid) ? new Resume() : storage.get(uuid);
+                if (sectionsToAdd != null && sectionsToAdd.length != 0) {
+                    addItemsToSections(resume, sectionsToAdd);
+                }
                 break;
             default:
                 throw new IllegalArgumentException("Action " + action + "is illegal");
@@ -90,6 +87,27 @@ public class ResumesServlet extends HttpServlet {
                 resume.getContacts().remove(type);
             }
 
+        }
+    }
+
+    private void readSections(Resume resume, HttpServletRequest request) {
+        for (SectionType type : SectionType.values()) {
+            switch (type) {
+                case PERSONAL:
+                case OBJECTIVE:
+                    readTextSection(resume, type, request);
+                    break;
+                case ACHIEVEMENTS:
+                case QUALIFICATIONS:
+                    readListSection(resume, type, request);
+                    break;
+                case EDUCATION:
+                case EXPERIENCE:
+                    readOrganizationSection(resume, type, request);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Section type " + type.name() + " is illegal");
+            }
         }
     }
 
@@ -142,5 +160,28 @@ public class ResumesServlet extends HttpServlet {
             resume.getSections().remove(type);
         }
 
+    }
+
+    private void addItemsToSections(Resume resume, String[] sectionsToAdd) {
+        for (String section : sectionsToAdd) {
+            SectionType type = SectionType.valueOf(section);
+            if (type == ACHIEVEMENTS || type == QUALIFICATIONS) {
+                ListSection oldListSection = (ListSection) resume.getSections().get(type);
+                boolean isEmpty = oldListSection == null;
+                ListSection listSection = isEmpty ? new ListSection(new ArrayList<>()) : oldListSection;
+                listSection.addItem("");
+                resume.addSection(type, listSection);
+            } else if (type == EDUCATION || type == EXPERIENCE) {
+                OrganizationSection oldOrganizationSection = (OrganizationSection) resume.getSections().get(type);
+                boolean isEmpty = oldOrganizationSection == null;
+                OrganizationSection organizationSection = isEmpty ? new OrganizationSection(new ArrayList<>()) : oldOrganizationSection;
+                organizationSection.addOrganization(new Organization("", "")
+                                                            .addPositionDetails("",
+                                                                                LocalDate.of(3000, 1, 1),
+                                                                                LocalDate.of(3000, 1, 1),
+                                                                                ""));
+                resume.addSection(type, organizationSection);
+            }
+        }
     }
 }

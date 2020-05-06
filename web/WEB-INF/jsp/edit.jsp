@@ -1,4 +1,5 @@
 <%@ page import="ru.javawebinar.basejava.model.ContactType" %>
+<%@ page import="ru.javawebinar.basejava.model.SectionType" %>
 <%@ page import="ru.javawebinar.basejava.util.DateUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -12,6 +13,9 @@
 </head>
 <body>
 <jsp:include page="fragments/header.jsp"/>
+<c:set var="queryString"
+       value="<%= request.getAttribute(\"javax.servlet.forward.request_uri\") + \"?\" + request.getQueryString()%>"
+       scope="session"/>
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -20,7 +24,8 @@
                 <input type="hidden" name="uuid" value="${resume.uuid}">
                 <dl class="row">
                     <dt class="col-1 align-middle">Имя:</dt>
-                    <dd class="col-11"><input type="text" name="fullName" size=50 value="${resume.fullName}"></dd>
+                    <dd class="col-11"><input type="text" name="fullName" size=50 value="${resume.fullName}" required>
+                    </dd>
                 </dl>
                 <h3>Контакты</h3>
                 <div class="pl-4">
@@ -32,32 +37,32 @@
                         </dl>
                     </c:forEach>
                 </div>
-                <c:forEach var="sectionEntry" items="${resume.sections}">
-                    <jsp:useBean id="sectionEntry"
-                                 type="java.util.Map.Entry<ru.javawebinar.basejava.model.SectionType, ru.javawebinar.basejava.model.Section>"/>
-                    <h3><%=sectionEntry.getKey().getTitle()%>
+                <c:forEach var="sectionType" items="${SectionType.values()}">
+                    <jsp:useBean id="sectionType" type="ru.javawebinar.basejava.model.SectionType"/>
+                    <c:set var="sections" scope="session" value="${resume.sections}"/>
+                    <h3>${sectionType.title}
                     </h3>
                     <c:choose>
-                        <c:when test="${sectionEntry.key.name() == 'PERSONAL' || sectionEntry.key.name() == 'OBJECTIVE'}">
+                        <c:when test="${sectionType == 'PERSONAL' || sectionType == 'OBJECTIVE'}">
                             <div class="pl-4">
-                        <textarea name="${sectionEntry.key.name()}" cols="86" rows="3"
-                                  maxlength="500">${(sectionEntry.value.getText())}</textarea>
+                                <textarea name="${sectionType}" cols="86" rows="3"
+                                          maxlength="500">${(sections.get(sectionType).getText())}</textarea>
                             </div>
-
                         </c:when>
-                        <c:when test="${sectionEntry.key.name() == 'ACHIEVEMENTS' || sectionEntry.key.name() == 'QUALIFICATIONS'}">
+                        <c:when test="${sectionType == 'ACHIEVEMENTS' || sectionType == 'QUALIFICATIONS'}">
                             <ul>
-                                <c:forEach var="item" items="${sectionEntry.value.getList()}">
-                                    <%--                            <li><input type="text" name="${sectionEntry.key.name()}_${'item'}" size="100"--%>
-                                    <%--                                       value="${item}"></li>--%>
-                                    <li><textarea name="${sectionEntry.key.name()}_${'item'}" cols="86" rows="3"
+                                <c:forEach var="item" items="${sections.get(sectionType).getList()}">
+                                    <li><textarea name="${sectionType}_${'item'}" cols="86" rows="3"
                                                   maxlength="500">${item}</textarea></li>
                                 </c:forEach>
                             </ul>
+                            <a href="${queryString}&addNewItemToSection=${sectionType}">
+                                <button type="button" class="btn btn-success ml-5 mb-4">Add</button>
+                            </a>
                         </c:when>
-                        <c:when test="${sectionEntry.key.name() == 'EXPERIENCE' || sectionEntry.key.name() == 'EDUCATION'}">
+                        <c:when test="${sectionType == 'EXPERIENCE' || sectionType == 'EDUCATION'}">
 
-                            <c:forEach var="organization" items="${sectionEntry.value.getList()}"
+                            <c:forEach var="organization" items="${sections.get(sectionType).getList()}"
                                        varStatus="orgLoop">
                                 <div class="pl-4 container-fluid">
                                     <table class="table table-striped">
@@ -65,7 +70,7 @@
                                             <td class="col-sm-1">Название:</td>
                                             <td class="col-sm-9">
                                                 <input type="text"
-                                                       name="${sectionEntry.key.name()}_${'companyName'}"
+                                                       name="${sectionType}_${'companyName'}"
                                                        size="100" value="${organization.getCompanyName()}"><br>
                                             </td>
                                         </tr>
@@ -73,7 +78,7 @@
                                             <td class="col-sm-1"> URL:</td>
                                             <td class="col-sm-9">
                                                 <input type="text"
-                                                       name="${sectionEntry.key.name()}_${orgLoop.index}_${'url'}"
+                                                       name="${sectionType}_${orgLoop.index}_${'url'}"
                                                        size="100" value="${organization.getUrl()}">
                                             </td>
                                         </tr>
@@ -83,20 +88,20 @@
                                             <tr class="row">
                                                 <td class="col-sm-3">
                                                     c: <input type="month"
-                                                              name="${sectionEntry.key.name()}_${orgLoop.index}_${posLoop.index}_${'endDate'}"
+                                                              name="${sectionType}_${orgLoop.index}_${posLoop.index}_${'endDate'}"
                                                               value="${DateUtil.toHtmlCalendarFormat(positionDetail.getEndDate())}"><br>
                                                     до: <input type="month"
-                                                               name="${sectionEntry.key.name()}_${orgLoop.index}_${posLoop.index}_${'startDate'}"
+                                                               name="${sectionType}_${orgLoop.index}_${posLoop.index}_${'startDate'}"
                                                                value="${DateUtil.toHtmlCalendarFormat(positionDetail.getStartDate())}">
                                                 </td>
                                                 <td class="col-sm-8">
                                                     <input type="text"
-                                                           name="${sectionEntry.key.name()}_${orgLoop.index}_${'title'}"
+                                                           name="${sectionType}_${orgLoop.index}_${'title'}"
                                                            size="86"
                                                            value="${positionDetail.getTitle()}"><br>
                                                     <b>Описание:</b><br>
                                                     <textarea
-                                                            name="${sectionEntry.key.name()}_${orgLoop.index}_${posLoop.index}_${'description'}"
+                                                            name="${sectionType}_${orgLoop.index}_${posLoop.index}_${'description'}"
                                                             cols="86" rows="3"
                                                             maxlength="500">${positionDetail.getDescription()}</textarea>
                                                 </td>
@@ -106,12 +111,18 @@
                                 </div>
                                 <hr>
                             </c:forEach>
+                            <a href="${queryString}&addNewItemToSection=${sectionType}">
+                                <button type="button" class="btn btn-success ml-5 mb-4">Add</button>
+                            </a>
                         </c:when>
                     </c:choose>
+
                 </c:forEach>
-                <button type="submit">Сохранить</button>
-                <button onclick="window.history.back()">Отменить</button>
             </form>
+            <div class="mt-4 mb-2">
+                <button class="btn btn-primary btn-lg" type="submit" form="resumeForm">Save</button>
+                <button class="btn btn-secondary btn-lg" onclick="window.history.back()">Cancel</button>
+            </div>
         </div>
     </div>
 </div>

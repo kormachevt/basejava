@@ -20,6 +20,10 @@ public class ListSection extends Section implements Serializable {
         return list;
     }
 
+    public void addItem(String item) {
+        list.add(item);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
