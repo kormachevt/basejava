@@ -51,7 +51,7 @@
                                 <tr class="d-flex">
                                     <td class="col-2"></td>
                                     <td class="col-10">
-                                        <h5><a href="${organization.getUrl()}">${organization.getCompanyName()}</a>
+                                        <h5><a href="//${organization.getUrl()}">${organization.getCompanyName()}</a>
                                         </h5>
                                     </td>
                                 </tr>
