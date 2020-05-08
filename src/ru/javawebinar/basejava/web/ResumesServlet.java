@@ -64,7 +64,7 @@ public class ResumesServlet extends HttpServlet {
                 resume = storage.get(uuid);
                 break;
             case "edit":
-                resume = "".equals(uuid) ? new Resume() : storage.get(uuid);
+                resume = isNotEmptyString(uuid) ? storage.get(uuid) : new Resume();
                 if (sectionsToAdd != null && sectionsToAdd.length != 0) {
                     addItemsToSections(resume, sectionsToAdd);
                 }
@@ -168,15 +168,18 @@ public class ResumesServlet extends HttpServlet {
             if (type == ACHIEVEMENTS || type == QUALIFICATIONS) {
                 ListSection oldListSection = (ListSection) resume.getSections().get(type);
                 boolean isEmpty = oldListSection == null;
-                ListSection listSection = isEmpty ? ListSection.EMPTY : oldListSection;
+                ListSection listSection = isEmpty ? new ListSection(new ArrayList<>()) : oldListSection;
                 listSection.addItem("");
                 resume.addSection(type, listSection);
             } else if (type == EDUCATION || type == EXPERIENCE) {
                 OrganizationSection oldOrganizationSection = (OrganizationSection) resume.getSections().get(type);
                 boolean isEmpty = oldOrganizationSection == null;
                 OrganizationSection organizationSection = isEmpty ? new OrganizationSection(new ArrayList<>()) : oldOrganizationSection;
-                organizationSection.addOrganization(Organization.EMPTY
-                                                            .addPositionDetails(Organization.PositionDetails.EMPTY));
+                organizationSection.addOrganization(new Organization("", "")
+                                                            .addPositionDetails(new Organization.PositionDetails("",
+                                                                                                                 LocalDate.of(3000, 1, 1),
+                                                                                                                 LocalDate.of(3000, 1, 1),
+                                                                                                                 "")));
                 resume.addSection(type, organizationSection);
             } else {
                 throw new IllegalArgumentException("Type " + type.name() + "is illegal");
