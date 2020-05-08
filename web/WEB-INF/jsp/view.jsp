@@ -61,12 +61,11 @@
                                                 ${DateUtil.format(positionDetail.getStartDate())}
                                             - ${DateUtil.format(positionDetail.getEndDate())}</td>
                                         <td class="col-10">
-                                            <b>${positionDetail.getTitle()}</b>.<br>${positionDetail.getDescription()}
+                                            <b>${positionDetail.getTitle()}</b><br>${positionDetail.getDescription()}
                                         </td>
                                     </tr>
                                 </c:forEach>
                             </table>
-                            <%--                            </div>--%>
                         </c:forEach>
                     </c:when>
                 </c:choose>
