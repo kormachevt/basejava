@@ -88,10 +88,10 @@
                                             <tr class="row">
                                                 <td class="col-sm-3">
                                                     c: <input type="month"
-                                                              name="${sectionType}_${orgLoop.index}_${posLoop.index}_${'endDate'}"
+                                                              name="${sectionType}_${orgLoop.index}_${posLoop.index}_${'startDate'}"
                                                               value="${DateUtil.toHtmlCalendarFormat(positionDetail.getEndDate())}"><br>
                                                     до: <input type="month"
-                                                               name="${sectionType}_${orgLoop.index}_${posLoop.index}_${'startDate'}"
+                                                               name="${sectionType}_${orgLoop.index}_${posLoop.index}_${'endDate'}"
                                                                value="${DateUtil.toHtmlCalendarFormat(positionDetail.getStartDate())}">
                                                 </td>
                                                 <td class="col-sm-8">
