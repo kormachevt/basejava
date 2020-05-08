@@ -168,19 +168,18 @@ public class ResumesServlet extends HttpServlet {
             if (type == ACHIEVEMENTS || type == QUALIFICATIONS) {
                 ListSection oldListSection = (ListSection) resume.getSections().get(type);
                 boolean isEmpty = oldListSection == null;
-                ListSection listSection = isEmpty ? new ListSection(new ArrayList<>()) : oldListSection;
+                ListSection listSection = isEmpty ? ListSection.EMPTY : oldListSection;
                 listSection.addItem("");
                 resume.addSection(type, listSection);
             } else if (type == EDUCATION || type == EXPERIENCE) {
                 OrganizationSection oldOrganizationSection = (OrganizationSection) resume.getSections().get(type);
                 boolean isEmpty = oldOrganizationSection == null;
                 OrganizationSection organizationSection = isEmpty ? new OrganizationSection(new ArrayList<>()) : oldOrganizationSection;
-                organizationSection.addOrganization(new Organization("", "")
-                                                            .addPositionDetails("",
-                                                                                LocalDate.of(3000, 1, 1),
-                                                                                LocalDate.of(3000, 1, 1),
-                                                                                ""));
+                organizationSection.addOrganization(Organization.EMPTY
+                                                            .addPositionDetails(Organization.PositionDetails.EMPTY));
                 resume.addSection(type, organizationSection);
+            } else {
+                throw new IllegalArgumentException("Type " + type.name() + "is illegal");
             }
         }
     }

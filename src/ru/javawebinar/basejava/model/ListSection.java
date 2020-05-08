@@ -1,11 +1,13 @@
 package ru.javawebinar.basejava.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class ListSection extends Section implements Serializable {
     private static final long serialVersionUID = 1L;
+    public static final ListSection EMPTY = new ListSection(new ArrayList<>());
 
     private List<String> list;
 

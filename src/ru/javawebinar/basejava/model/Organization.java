@@ -14,6 +14,7 @@ import java.util.Objects;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Organization implements Serializable {
     private static final long serialVersionUID = 1L;
+    public static final Organization EMPTY = new Organization("", "");
 
     private List<PositionDetails> positionDetailsList = new ArrayList<>();
     private String companyName;
@@ -48,6 +49,11 @@ public class Organization implements Serializable {
         return this;
     }
 
+    public Organization addPositionDetails(PositionDetails positionDetails) {
+        this.positionDetailsList.add(positionDetails);
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -69,6 +75,10 @@ public class Organization implements Serializable {
     @XmlAccessorType(XmlAccessType.FIELD)
     public static class PositionDetails implements Serializable {
         private static final long serialVersionUID = 1L;
+        public static final PositionDetails EMPTY = new PositionDetails("",
+                                                                        LocalDate.of(3000, 1, 1),
+                                                                        LocalDate.of(3000, 1, 1),
+                                                                        "");
 
         private String title;
         @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
